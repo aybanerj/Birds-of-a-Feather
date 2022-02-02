@@ -8,13 +8,87 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="343dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="381dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/past"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/courseID"
+        android:layout_width="183dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="12dp"
+        android:ems="10"
+        android:hint="ID #"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/enterClass"
+        app:layout_constraintTop_toTopOf="@+id/course" />
+
+    <Spinner
+        android:id="@+id/quarter"
+        android:layout_width="185dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="QUARTER"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/courseID"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/year"
+        android:layout_width="184dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:hint="YEAR"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/enterClass"
+        app:layout_constraintEnd_toStartOf="@+id/courseID"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/enterClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="20dp"
+        android:text="Enter"
+        app:layout_constraintBottom_toTopOf="@+id/DoneClass"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/course"
+        android:layout_width="184dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="4dp"
+        android:ems="10"
+        android:hint="COURSE"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/year"
+        app:layout_constraintEnd_toStartOf="@+id/quarter"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/DoneClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="goBack"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
