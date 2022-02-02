@@ -7,11 +7,17 @@ public class FirstName {
     firstName = name;
   }
 
-  public void setName(String name) {
+  private void setName(String name) {
     firstName = name;
   }
 
   public String getName() {
     return firstName;
+  }
+
+  public boolean checkValid(String name) {
+    if (name.length() > 100) return false;
+    if (!name.matches("[a-zA-Z]*")) return false;
+    return true;
   }
 }
