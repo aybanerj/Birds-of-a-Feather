@@ -1,2 +1,2 @@
-# birds-of-a-feather-cse-110-team-1
-birds-of-a-feather-cse-110-team-1 created by GitHub Classroom
+# Birds of a Feather CSE 110 Team-1
+### Victoria | Mark | Wei | Yizhang | Ayushi | Justin
