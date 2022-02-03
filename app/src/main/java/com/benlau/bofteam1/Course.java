@@ -39,4 +39,9 @@ public class Course {
     Course course = (Course) o;
     return year.equals(course.year) && quarter == course.quarter && subject.equals(course.subject) && number.equals(course.number);
   }
+
+  @Override
+  public String toString() {
+    return year + quarter + " " + subject + " " + number;
+  }
 }
