@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -49,5 +50,18 @@ public class ProfileActivity extends AppCompatActivity {
     public void onSubmitClicked(View view) {
         //Intent intent = new Intent(/* the class for the PROFILE PREVIEW screen goes here */);
         //startActivity(intent);
+        TextView nameInput = findViewById(R.id.nameField);
+        String name = nameInput.getText().toString();
+
+        if (name.length()> 100){
+            Utilities.showAlert(this, "Your name needs to be <= 100 characters");
+        }
+        if (name.length() <= 0){
+            Utilities.showAlert(this, "your name can't be empty");
+        }
+        String regex = "^[a-zA-Z- ]*$";
+        if (!name.matches(regex)) {
+            Utilities.showAlert(this, "your name can only be letters, space, and hyphens!");
+        }
     }
 }
