@@ -1,4 +1,4 @@
-package com.benlau.bofteam1;
+package com.benlau.bofteam1.db;
 
 public class Course {
     public String year;

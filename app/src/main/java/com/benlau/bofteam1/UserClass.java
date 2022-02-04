@@ -21,7 +21,7 @@ public class UserClass extends AppCompatActivity {
 
         Spinner quarter = findViewById(R.id.quarter);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
-                new String[]{"FA", "WI", "SPR", "S1", "S2"});
+                new String[]{"FA", "WI", "SP", "SS1", "SS2", "SSS"});
         quarter.setPrompt("QUARTER");
         quarter.setAdapter(adapter);
 
