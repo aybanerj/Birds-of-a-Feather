@@ -10,18 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.benlau.bofteam1.db.Course;
-
 import java.util.List;
 
 public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.ViewHolder> {
-    private final List<? extends ICourse> courses;
-
-    public CoursesViewAdapter(List<? extends ICourse> courses){
+//    private final List<? extends ICourse> courses;
+//
+//    public CoursesViewAdapter(List<? extends ICourse> courses){
+//        super();
+//        this.courses = courses;
+//    }
+    private final ICourse[] courses;
+    public CoursesViewAdapter(ICourse[] courses){
         super();
         this.courses = courses;
     }
-
     @NonNull
     @Override
     public CoursesViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
@@ -33,16 +35,16 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CoursesViewAdapter.ViewHolder holder, int position){
-        holder.setCourse(courses.get(position));
+        holder.setCourse(courses[position]);
     }
 
     @Override
     public int getItemCount(){
-        return this.courses.size();
+        return this.courses.length;
     }
 
-    public static class ViewHolder extends
-            RecyclerView.ViewHolder
+    public static class ViewHolder
+            extends RecyclerView.ViewHolder
             implements View.OnClickListener{
         private final TextView courseNameView;
         private ICourse course;
@@ -55,14 +57,14 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
 
         public void setCourse(ICourse course){
             this.course  = course;
-            this.courseNameView.setText(course.getName());
+            this.courseNameView.setText(course.getCourse());
         }
 
         @Override
         public void onClick(View view){
             Context context = view.getContext();
             Intent intent = new Intent(context, UserClass.class);
-            intent.putExtra("my_courses", this.course.getName());
+            intent.putExtra("my_courses", this.course.getCourse());
             context.startActivity(intent);
         }
     }
