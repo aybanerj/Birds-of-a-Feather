@@ -8,12 +8,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.benlau.bofteam1.db.DummyCourse;
+import com.benlau.bofteam1.db.dummyCourses;
+
 public class UserClass extends AppCompatActivity {
+    protected RecyclerView coursesRecyclerView;
+    protected RecyclerView.LayoutManager coursesLayoutManager;
+    protected CoursesViewAdapter coursesViewAdapter;
+
+    protected DummyCourse[] data = {
+            new DummyCourse("Spring 2020 CSE 30"),
+            new DummyCourse("Fall 2020 CSE 21")
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

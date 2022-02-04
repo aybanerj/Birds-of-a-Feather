@@ -10,7 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.benlau.bofteam1.db.Course;
+
+import java.util.List;
+
 public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.ViewHolder> {
+    private final List<? extends ICourse> courses;
+
+    public CoursesViewAdapter(List<? extends ICourse> courses){
+        super();
+        this.courses = courses;
+    }
 
     @NonNull
     @Override
@@ -23,12 +33,12 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CoursesViewAdapter.ViewHolder holder, int position){
-        holder.setCourse(courses[position]);
+        holder.setCourse(courses.get(position));
     }
 
     @Override
     public int getItemCount(){
-        return this.courses.length;
+        return this.courses.size();
     }
 
     public static class ViewHolder extends
