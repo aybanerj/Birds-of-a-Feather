@@ -2,8 +2,11 @@ package com.benlau.bofteam1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -28,7 +31,46 @@ public class ProfileActivity extends AppCompatActivity {
             //autofills Google Login information
         }
         //load profile from hashmap
+        loadProfile();
+
+
+
+
     }
+
+    @Override
+    protected void onDestroy(){
+        //save the profile preferences
+        super.onDestroy();
+        saveProfile();
+
+
+    }
+
+    public void loadProfile() {
+        //getting saved preferences to load profile data
+        SharedPreferences preferences= getPreferences(MODE_PRIVATE);
+        TextView nameInput = findViewById(R.id.nameField);
+        TextView urlInput = findViewById(R.id.photoField);
+        nameInput.setText(preferences.getString("first_name", nameInput.getText().toString()));
+        urlInput.setText(preferences.getString("url",urlInput.getText().toString()));
+
+    }
+    public void saveProfile(){
+        //saving profile data
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        TextView nameInput = findViewById(R.id.nameField);
+        TextView urlInput = findViewById(R.id.photoField);
+        editor.putString("first_name", nameInput.getText().toString());
+        editor.putString("url", urlInput.getText().toString());
+        editor.apply();
+
+    }
+
+
+
+
 
     /*
      * Data entered in the name and photo URL field MUST be saved somewhere, like to a hashmap in Lab4
@@ -36,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
      * a loadProfile() that implements reading from the hashmap
      * a saveProfile() that implements writing to the hashmap
      * a onDestroy() to Destroy this activity
-     * a exitAndSave() to SAVE and EXIT activity while launching the previous activity
+     * a exitAndSave() *I named it Submit* to SAVE and EXIT activity while launching the previous activity
      * note: dunno if specifying the intent of the previous activity and launching it as you would
      * a new activity is necessary, but will implement this way to be safe at first
      */
@@ -47,7 +89,8 @@ public class ProfileActivity extends AppCompatActivity {
      * @param View - a view representing my political and social viewpoints (gonna read the lab again)
      */
     public void onSubmitClicked(View view) {
-        //Intent intent = new Intent(/* the class for the PROFILE PREVIEW screen goes here */);
-        //startActivity(intent);
+       finish();//finish this profile then launch the other Profile
+       Intent intent = new Intent(this, ProfileReview.class);
+       startActivity(intent);
     }
 }
