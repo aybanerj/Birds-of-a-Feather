@@ -2,6 +2,8 @@ package com.benlau.bofteam1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -11,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.content.SharedPreferences;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -26,8 +28,11 @@ public class ProfileReview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_review);
-
+        SharedPreferences preferences= getPreferences(MODE_PRIVATE);
+        TextView urlInput = findViewById(R.id.photoField);
+       // String url_pic = preferences.getString("url",urlInput.getText().toString());
         URL_pic = findViewById(R.id.test_url);
+
         load = findViewById(R.id.button);
         textView = findViewById(R.id.editTextTextPersonName);
 
@@ -43,8 +48,25 @@ public class ProfileReview extends AppCompatActivity {
 
     }
 
+    public void onDoneClicked(View view) {
+
+        //Intent intent = new Intent(/* the class for the Course Selection Screen goes here */);
+        //startActivity(intent);
+    }
+
+    public void onGoBackClicked(View view) {
+        //go back to profile creation
+        Intent intent = new Intent(this,ProfileActivity.class);
+        startActivity(intent);
+
+    }
+
 
     private class LoadImage extends AsyncTask<String, Void, Bitmap> {
+
+
+
+
         ImageView imageView;
         public  LoadImage(ImageView URL_pic) {
             this.imageView = URL_pic;
