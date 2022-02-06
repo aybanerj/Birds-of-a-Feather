@@ -89,8 +89,23 @@ public class ProfileActivity extends AppCompatActivity {
      * @param View - a view representing my political and social viewpoints (gonna read the lab again)
      */
     public void onSubmitClicked(View view) {
+
+        TextView nameInput = findViewById(R.id.nameField);
+        String name = nameInput.getText().toString();
+
+        if (name.length()> 100){
+            Utilities.showAlert(this, "Your name needs to be <= 100 characters");
+        }
+        if (name.length() <= 0){
+            Utilities.showAlert(this, "your name can't be empty");
+        }
+        String regex = "^[a-zA-Z- ]*$";
+        if (!name.matches(regex)) {
+            Utilities.showAlert(this, "your name can only be letters, space, and hyphens!");
+        }
        finish();//finish this profile then launch the other Profile
        Intent intent = new Intent(this, ProfileReview.class);
        startActivity(intent);
+
     }
 }
