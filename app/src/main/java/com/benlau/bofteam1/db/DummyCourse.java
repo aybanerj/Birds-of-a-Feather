@@ -4,16 +4,23 @@ package com.benlau.bofteam1.db;
 import com.benlau.bofteam1.ICourse;
 
 public class DummyCourse implements ICourse {
+    private final int id;
     private final String quarter;
     private final String year;
     private final String course;
     private final String number;
 
-    public DummyCourse(String quarter, String year, String course, String number){
+    public DummyCourse(int id, String quarter, String year, String course, String number){
+        this.id = id;
         this.quarter = quarter;
         this.year = year;
         this.course = course;
         this.number = number;
+    }
+
+    @Override
+    public int getId(){
+        return this.id;
     }
 
     @Override

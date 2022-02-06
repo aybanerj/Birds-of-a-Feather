@@ -62,6 +62,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="20dp"
         android:text="Enter"
+        android:onClick="onAddCourseClicked"
         app:layout_constraintBottom_toTopOf="@+id/DoneClass"
         app:layout_constraintEnd_toEndOf="parent" />
 
