@@ -2,8 +2,12 @@ package com.benlau.bofteam1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -28,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
             //autofills Google Login information
         }
         //load profile from hashmap
+        this.loadProfile();
     }
 
     /*
@@ -43,11 +48,47 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     /*
-     * Function that launches the (insert name of activity for PROFILE PREVIEW) screen using an intent
+     * Function that launches the (Profile Review) screen using an intent
+     * and SAVES the current profile
      * @param View - a view representing my political and social viewpoints (gonna read the lab again)
      */
     public void onSubmitClicked(View view) {
-        //Intent intent = new Intent(/* the class for the PROFILE PREVIEW screen goes here */);
-        //startActivity(intent);
+        Intent intent = new Intent(this, ProfileReview.class);
+        startActivity(intent);
+        this.saveProfile();
     }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+        this.saveProfile();
+        //call save here
+
+    }
+
+    public void loadProfile() {
+        SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
+        //load from the hashmap
+
+        EditText nameField = findViewById(R.id.nameField);
+        EditText photoField = findViewById(R.id.photoField);
+        nameField.setText(preferences.getString("name", ""));
+        photoField.setText(preferences.getString("photoURL", ""));
+
+    }
+
+    public void saveProfile() {
+        SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        //write to the hashmap
+        TextView nameField = findViewById(R.id.nameField);
+        TextView photoField = findViewById(R.id.photoField);
+        editor.putString("name",nameField.getText().toString());
+        editor.putString("photoURL",photoField.getText().toString());
+
+        editor.apply();
+    }
+
+
 }
