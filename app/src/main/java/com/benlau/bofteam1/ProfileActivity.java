@@ -58,25 +58,24 @@ public class ProfileActivity extends AppCompatActivity {
         //verify the the validity of the name
         EditText nameField = findViewById(R.id.nameField);
         String name = nameField.getText().toString();
-
-        if (name.length()> 100){
+        if (name.length() > 100) {
             Utilities.showAlert(this, "Your name needs to be <= 100 characters");
+            return;
         }
-        if (name.length() <= 0){
+        if (name.length() <= 0) {
             Utilities.showAlert(this, "your name can't be empty");
+            return;
         }
         String regex = "^[a-zA-Z- ]*$";
         if (!name.matches(regex)) {
             Utilities.showAlert(this, "your name can only be letters, space, and hyphens!");
+            return;
         }
-       finish();//finish this profile then launch the other Profile
-       Intent intent = new Intent(this, ProfileReview.class);
-       startActivity(intent);
-      
-      //only start Profile Review Activity after verifying the validity of name 
-      Intent intent = new Intent(this, ProfileReview.class);
+        //only start Profile Review Activity after verifying the validity of name
+        Intent intent = new Intent(this, ProfileReview.class);
         startActivity(intent);
         this.saveProfile();
+
     }
 
     @Override
