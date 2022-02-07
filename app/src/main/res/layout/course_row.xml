@@ -40,6 +40,17 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/course_row_name"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/edit_course"
+            android:layout_width="69dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="edit"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/remove_course_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
