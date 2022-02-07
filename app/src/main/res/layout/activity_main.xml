@@ -6,44 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!--TEMPORARY IMPLEMENTATION NOT FINAL of initial screen when app launched-->
+
+    <!--To be determined what screen will be the "root" screen in Main Activity-->
+    <!--TEMPORARY BUTTON to function as a launcher for the profile screen-->
+    <!--NOT THE FINAL IMPLEMENTATION OF BLUETOOTH PERMISSIONS DIALOGUE!!!!!!!-->
+
 
     <TextView
         android:id="@+id/profileTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create a Profile"
-        android:textSize="50dp"
+        android:text="Wanna paint your tooth Blue?"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.372" />
 
-    <EditText
-        android:id="@+id/photoField"
+    <Button
+        android:id="@+id/Allow_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="photo URL"
-        android:inputType="textPersonName"
+        android:onClick="onAllowClicked"
+        android:text="Allow"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.315"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileTitle"
-        app:layout_constraintVertical_bias="0.293" />
+        app:layout_constraintVertical_bias="0.234" />
 
-    <EditText
-        android:id="@+id/nameField"
+    <Button
+        android:id="@+id/Cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Preferred Name"
-        android:inputType="textPersonName"
+        android:onClick="onCancelClicked"
+        android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/photoField"
-        app:layout_constraintVertical_bias="0.299" />
+        app:layout_constraintTop_toBottomOf="@id/profileTitle"
+        app:layout_constraintVertical_bias="0.234" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
