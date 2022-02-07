@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserClass">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="374dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="568dp"
+        android:text="@string/past"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Spinner
+        android:id="@+id/quarter"
+        android:layout_width="183dp"
+        android:layout_height="77dp"
+        android:layout_marginBottom="12dp"
+        android:contentDescription="QUARTER"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/year"
+        app:layout_constraintEnd_toStartOf="@+id/course"
+        app:layout_constraintHorizontal_bias="0.575"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/year"
+        android:layout_width="183dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="4dp"
+        android:ems="10"
+        android:hint="YEAR"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/enterClass"
+        app:layout_constraintEnd_toStartOf="@+id/courseID"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/course"
+        android:layout_width="183dp"
+        android:layout_height="77dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:hint="COURSE"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/courseID"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/enterClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="4dp"
+        android:onClick="onAddCourseClicked"
+        android:text="Enter"
+        app:layout_constraintBottom_toTopOf="@+id/DoneClass"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/courseID"
+        android:layout_width="183dp"
+        android:layout_height="77dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="4dp"
+        android:ems="10"
+        android:hint="ID #"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/enterClass"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/DoneClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="goBack"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_courses"
+        android:layout_width="372dp"
+        android:layout_height="258dp"
+        android:layout_marginTop="12dp"
+        android:outlineProvider="background"
+        app:layout_constraintBottom_toTopOf="@+id/course"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.589"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
