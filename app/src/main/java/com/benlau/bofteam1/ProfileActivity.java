@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -31,44 +32,8 @@ public class ProfileActivity extends AppCompatActivity {
             //autofills Google Login information
         }
         //load profile from hashmap
-        loadProfile();
-
-
-
-
+        this.loadProfile();
     }
-
-    @Override
-    protected void onDestroy(){
-        //save the profile preferences
-        super.onDestroy();
-        saveProfile();
-
-
-    }
-
-    public void loadProfile() {
-        //getting saved preferences to load profile data
-        SharedPreferences preferences= getPreferences(MODE_PRIVATE);
-        TextView nameInput = findViewById(R.id.nameField);
-        TextView urlInput = findViewById(R.id.photoField);
-        nameInput.setText(preferences.getString("first_name", nameInput.getText().toString()));
-        urlInput.setText(preferences.getString("url",urlInput.getText().toString()));
-
-    }
-    public void saveProfile(){
-        //saving profile data
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        TextView nameInput = findViewById(R.id.nameField);
-        TextView urlInput = findViewById(R.id.photoField);
-        editor.putString("first_name", nameInput.getText().toString());
-        editor.putString("url", urlInput.getText().toString());
-        editor.apply();
-
-    }
-
-
 
 
 
@@ -85,13 +50,14 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     /*
-     * Function that launches the (insert name of activity for PROFILE PREVIEW) screen using an intent
+     * Function that launches the (Profile Review) screen using an intent
+     * and SAVES the current profile
      * @param View - a view representing my political and social viewpoints (gonna read the lab again)
      */
     public void onSubmitClicked(View view) {
-
-        TextView nameInput = findViewById(R.id.nameField);
-        String name = nameInput.getText().toString();
+        //verify the the validity of the name
+        EditText nameField = findViewById(R.id.nameField);
+        String name = nameField.getText().toString();
 
         if (name.length()> 100){
             Utilities.showAlert(this, "Your name needs to be <= 100 characters");
@@ -106,6 +72,44 @@ public class ProfileActivity extends AppCompatActivity {
        finish();//finish this profile then launch the other Profile
        Intent intent = new Intent(this, ProfileReview.class);
        startActivity(intent);
+      
+      //only start Profile Review Activity after verifying the validity of name 
+      Intent intent = new Intent(this, ProfileReview.class);
+        startActivity(intent);
+        this.saveProfile();
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+        this.saveProfile();
+        //call save here
 
     }
+
+    public void loadProfile() {
+        SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
+        //load from the hashmap
+
+        EditText nameField = findViewById(R.id.nameField);
+        EditText photoField = findViewById(R.id.photoField);
+        nameField.setText(preferences.getString("name", ""));
+        photoField.setText(preferences.getString("photoURL", ""));
+
+    }
+
+    public void saveProfile() {
+        SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        //write to the hashmap
+        TextView nameField = findViewById(R.id.nameField);
+        TextView photoField = findViewById(R.id.photoField);
+        editor.putString("name",nameField.getText().toString());
+        editor.putString("photoURL",photoField.getText().toString());
+
+        editor.apply();
+    }
+
+
 }
