@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.content.SharedPreferences;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -30,9 +30,9 @@ public class ProfileReview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_review);
-
         /*
         URL_pic = findViewById(R.id.test_url);
+
         load = findViewById(R.id.button);
         textView = findViewById(R.id.editTextTextPersonName);
 
@@ -87,8 +87,11 @@ public class ProfileReview extends AppCompatActivity {
         //startActivity(intent);
     }
 
-
     private class LoadImage extends AsyncTask<String, Void, Bitmap> {
+
+
+
+
         ImageView imageView;
         public  LoadImage(ImageView URL_pic) {
             this.imageView = URL_pic;

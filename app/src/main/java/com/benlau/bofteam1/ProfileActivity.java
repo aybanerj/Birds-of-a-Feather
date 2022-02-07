@@ -35,13 +35,15 @@ public class ProfileActivity extends AppCompatActivity {
         this.loadProfile();
     }
 
+
+
     /*
      * Data entered in the name and photo URL field MUST be saved somewhere, like to a hashmap in Lab4
      * When revisiting the profile later, this data MUST be loaded, for ex:
      * a loadProfile() that implements reading from the hashmap
      * a saveProfile() that implements writing to the hashmap
      * a onDestroy() to Destroy this activity
-     * a exitAndSave() to SAVE and EXIT activity while launching the previous activity
+     * a exitAndSave() *I named it Submit* to SAVE and EXIT activity while launching the previous activity
      * note: dunno if specifying the intent of the previous activity and launching it as you would
      * a new activity is necessary, but will implement this way to be safe at first
      */
@@ -53,7 +55,26 @@ public class ProfileActivity extends AppCompatActivity {
      * @param View - a view representing my political and social viewpoints (gonna read the lab again)
      */
     public void onSubmitClicked(View view) {
-        Intent intent = new Intent(this, ProfileReview.class);
+        //verify the the validity of the name
+        EditText nameField = findViewById(R.id.nameField);
+        String name = nameField.getText().toString();
+
+        if (name.length()> 100){
+            Utilities.showAlert(this, "Your name needs to be <= 100 characters");
+        }
+        if (name.length() <= 0){
+            Utilities.showAlert(this, "your name can't be empty");
+        }
+        String regex = "^[a-zA-Z- ]*$";
+        if (!name.matches(regex)) {
+            Utilities.showAlert(this, "your name can only be letters, space, and hyphens!");
+        }
+       finish();//finish this profile then launch the other Profile
+       Intent intent = new Intent(this, ProfileReview.class);
+       startActivity(intent);
+      
+      //only start Profile Review Activity after verifying the validity of name 
+      Intent intent = new Intent(this, ProfileReview.class);
         startActivity(intent);
         this.saveProfile();
     }
