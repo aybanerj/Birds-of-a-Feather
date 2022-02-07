@@ -34,7 +34,7 @@
             android:id="@+id/remove_course_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:text="X"
+            android:text="x"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
