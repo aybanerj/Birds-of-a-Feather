@@ -4,64 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ProfileActivity">
 
-    <!--TEMPORARY IMPLEMENTATION NOT FINAL of initial screen when app launched-->
-
-    <!--To be determined what screen will be the "root" screen in Main Activity-->
-    <!--TEMPORARY BUTTON to function as a launcher for the profile screen-->
-    <!--NOT THE FINAL IMPLEMENTATION OF BLUETOOTH PERMISSIONS DIALOGUE!!!!!!!-->
-
-
+    <!--Title for Profile Screen-->
     <TextView
         android:id="@+id/profileTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wanna paint your tooth Blue?"
-        android:textSize="50sp"
+        android:text="Create a Profile"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.372" />
+        app:layout_constraintVertical_bias="0.152" />
 
-    <Button
-        android:id="@+id/Allow_btn"
+    <!--Field to enter URL for photo-->
+    <EditText
+        android:id="@+id/photoField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onAllowClicked"
-        android:text="Allow"
+        android:ems="10"
+        android:hint="photo URL"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.315"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileTitle"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintVertical_bias="0.293" />
 
-    <Button
-        android:id="@+id/Cancel_btn"
+    <!--Field to confirm/modify autofilled preferred name-->
+    <!--android:hint only useful in informing the user when the user wants to modify name-->
+    <EditText
+        android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onCancelClicked"
-        android:text="Cancel"
+        android:ems="10"
+        android:hint="Preferred Name"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profileTitle"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintTop_toBottomOf="@id/photoField"
+        app:layout_constraintVertical_bias="0.299" />
 
-
+    <!--button to submit user's name and photo URL to then go to the PROFILE PREVIEW screen-->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/submit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:onClick="onLaunchAddCourse"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        android:onClick="onSubmitClicked"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.688"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameField"
+        app:layout_constraintVertical_bias="0.09" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

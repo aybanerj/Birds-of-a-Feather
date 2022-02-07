@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.benlau.bofteam1" >
 
+    package="com.benlau.bofteam1">
+    
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +15,12 @@
         android:theme="@style/Theme.BOFTeam1" >
         <activity
             android:name=".UserClass"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileReview"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
