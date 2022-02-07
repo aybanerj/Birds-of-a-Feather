@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.benlau.bofteam1.db.Course;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -69,6 +72,23 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
                 removeCourse.accept(this.getAdapterPosition());
                 onCourseRemoved.accept(course);
             });
+/*
+            TextView yearText = itemView.findViewById(R.id.year);
+            TextView courseText = itemView.findViewById(R.id.course);
+            TextView courseIdText = itemView.findViewById(R.id.courseID);
+            Spinner quarterSpinner = itemView.findViewById(R.id.quarter);
+
+            Button editButton = itemView.findViewById(R.id.edit_course);
+            editButton.setOnClickListener((view) -> {
+                removeCourse.accept(this.getAdapterPosition());
+                onCourseRemoved.accept(course);
+
+                yearText.setText(course.year);
+                courseText.setText(course.courseName);
+                courseIdText.setText(course.id);
+
+            });
+*/
         }
 
         public void setCourse(Course course){

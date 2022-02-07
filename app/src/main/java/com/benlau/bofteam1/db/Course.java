@@ -14,7 +14,8 @@ public class Course implements ICourse {
     public String quarter;
     public String courseName;
     public String courseNumber;
-    @PrimaryKey@NonNull
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "fullCourse")
     public String fullCourse;
 

@@ -56,6 +56,7 @@ public class UserClass extends AppCompatActivity {
     }
 
     public void onAddCourseClicked(View view){
+
         int newCourseId = db.coursesDao().maxId() + 1;
         Spinner quarterSchool = (Spinner) findViewById(R.id.quarter);
         TextView numberTV = findViewById(R.id.courseID);
@@ -67,9 +68,15 @@ public class UserClass extends AppCompatActivity {
         String course = courseTV.getText().toString();
 
         Course newCourse = new Course(newCourseId, year, quarter, course, number);
-        db.coursesDao().insert(newCourse);
-
-        coursesViewAdapter.addCourse(newCourse);
+        if(year.equals("") || course.equals("") || number.equals(""))
+        {
+            Utilities.showAlert(this, "Missing Value");
+        }
+        else
+        {
+            db.coursesDao().insert(newCourse);
+            coursesViewAdapter.addCourse(newCourse);
+        }
     }
 
     public void goBack(View view) {
