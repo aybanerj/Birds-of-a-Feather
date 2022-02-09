@@ -83,8 +83,8 @@ public class ProfileReview extends AppCompatActivity {
      */
     public void onConfirmClicked(View v) {
         //UNCOMMENT WHEN READY TO INTEGRATE!!!!!!
-        //Intent intent = new Intent(this, UserClass.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, UserClass.class);
+        startActivity(intent);
     }
 
     private class LoadImage extends AsyncTask<String, Void, Bitmap> {

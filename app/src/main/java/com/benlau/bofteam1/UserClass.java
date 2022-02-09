@@ -2,6 +2,8 @@ package com.benlau.bofteam1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -14,7 +16,6 @@ import android.widget.TextView;
 
 import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
-import com.benlau.bofteam1.db.DummyCourse;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class UserClass extends AppCompatActivity {
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
 
-        coursesViewAdapter = new CoursesViewAdapter(courses, (course) -> db.coursesDao().delete(course));
+        coursesViewAdapter = new CoursesViewAdapter(courses, (course) ->{ db.coursesDao().delete(course);});
         coursesRecyclerView.setAdapter(coursesViewAdapter);
 
 
@@ -77,6 +78,12 @@ public class UserClass extends AppCompatActivity {
             db.coursesDao().insert(newCourse);
             coursesViewAdapter.addCourse(newCourse);
         }
+    }
+
+    public void onEnterClicked(View view){
+        Context context = view.getContext();
+        Intent intent = new Intent(context, HomeScreen.class);
+        context.startActivity(intent);
     }
 
     public void goBack(View view) {
