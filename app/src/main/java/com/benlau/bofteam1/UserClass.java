@@ -37,7 +37,7 @@ public class UserClass extends AppCompatActivity {
         setContentView(R.layout.activity_user_class);
         setTitle("Course History");
 
-        db = AppDatabase.singleton(getApplicationContext());
+        db = AppDatabase.singleton(this);
         List<Course> courses = db.coursesDao().myCourses();
 
         Spinner quarter = findViewById(R.id.quarter);

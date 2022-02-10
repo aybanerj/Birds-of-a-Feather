@@ -22,9 +22,9 @@ public class HomeScreen extends AppCompatActivity {
     private AppDatabase db;
 
     protected DummyStudent[] data = {
-            new DummyStudent("Ayushi", "url", "3"),
-            new DummyStudent("Victoria", "url", "2"),
-            new DummyStudent("Mark", "url", "4")
+            new DummyStudent("Ayushi", "https://cdn.sanity.io/images/2r0kdewr/production/82f8a09e19a456b94077b31d23861a5b03905307-1000x667.jpg", "2"),
+            new DummyStudent("Victoria", "https://sandiegoburgercompany.com/wp-content/uploads/2020/07/mobile-header-bg.jpg", "3"),
+            new DummyStudent("Mark", "https://betsylife.com/wp-content/uploads/2019/11/pho.jpg", "4")
     };
 
     @Override

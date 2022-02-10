@@ -1,9 +1,6 @@
 package com.benlau.bofteam1.db;
 
-
-import com.benlau.bofteam1.ICourse;
-
-public class DummyCourse implements ICourse {
+public class DummyCourse{
     private final int id;
     private final String quarter;
     private final String year;
@@ -18,12 +15,10 @@ public class DummyCourse implements ICourse {
         this.number = number;
     }
 
-    @Override
     public int getId(){
         return this.id;
     }
 
-    @Override
     public String getCourse(){
         String courseDisplay = (this.year + " " + this.quarter + " " + this.course + " " + this.number);
         return courseDisplay;

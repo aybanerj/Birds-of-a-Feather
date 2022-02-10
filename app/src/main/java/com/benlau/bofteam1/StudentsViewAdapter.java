@@ -2,6 +2,7 @@ package com.benlau.bofteam1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
     @Override
     public void onBindViewHolder(@NonNull StudentsViewAdapter.ViewHolder holder, int position){
         holder.setStudent(students[position]);
-        //holder.setUrl(students[position]);
+        holder.setStudentUrl(students[position]);
         holder.setCourseCount(students[position]);
     }
 
@@ -59,6 +60,11 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
 
         public void setCourseCount(DummyStudent student){
             this.courseCountView.setText(student.numCommon);
+        }
+
+        public void setStudentUrl(DummyStudent student){
+            LoadImage loadImage = new LoadImage(this.studentUrl);
+            loadImage.execute(student.photoUrl);
         }
 
         // uncomment when integrating with story 4

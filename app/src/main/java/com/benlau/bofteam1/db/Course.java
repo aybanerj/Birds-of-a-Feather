@@ -5,16 +5,17 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.benlau.bofteam1.ICourse;
-
 @Entity(tableName = "course_history")
-public class Course implements ICourse {
-    public int id;
+public class Course {
     public String year;
     public String quarter;
     public String courseName;
     public String courseNumber;
     @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    public int courseId;
+
     @NonNull
     @ColumnInfo(name = "fullCourse")
     public String fullCourse;
@@ -25,7 +26,7 @@ public class Course implements ICourse {
     // Constructor to add new courses
     public Course(){}
     public Course(int id, String year, String quarter, String courseName, String courseNumber){
-        this.id = id;
+        this.courseId = id;
         this.year = year;
         this.quarter = quarter;
         this.courseName = courseName;
@@ -33,14 +34,10 @@ public class Course implements ICourse {
         String fullCourse = year + " " + quarter + " " + courseName + " " + courseNumber;
         this.fullCourse = fullCourse;
     }
-
-    @Override
     public String getCourse(){
         return this.fullCourse;
     }
-
-    @Override
     public int getId(){
-        return this.id;
+        return this.courseId;
     }
 }
