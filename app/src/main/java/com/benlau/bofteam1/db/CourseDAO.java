@@ -12,8 +12,8 @@ import java.util.List;
 public interface CourseDAO
 {
     @Transaction
-    @Query("SELECT * FROM course_history")
-    List<Course> myCourses();
+    @Query("SELECT * FROM course_history where person_id=:personId")
+    List<Course> getCoursesForPerson(int personId);
 
     @Insert
     void insert(Course course);

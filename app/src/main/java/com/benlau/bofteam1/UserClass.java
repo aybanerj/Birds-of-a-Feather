@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
-import com.benlau.bofteam1.db.DummyCourse;
+//import com.benlau.bofteam1.db.DummyCourse;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class UserClass extends AppCompatActivity {
         setTitle("Course History");
 
         db = AppDatabase.singleton(getApplicationContext());
-        List<Course> courses = db.coursesDao().myCourses();
+        List<Course> courses = db.coursesDao().getCoursesForPerson(0);//the first person
 
         Spinner quarter = findViewById(R.id.quarter);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
@@ -53,9 +53,17 @@ public class UserClass extends AppCompatActivity {
         coursesRecyclerView.setAdapter(coursesViewAdapter);
 
 
+        //Just going to insert some mocked values for now into databse to simulate classmates' courses
+        //can predefine a .db file to preassign to database
+        //Course classmate1 = new Course(newCourseId, year, quarter, course, number);
+
+
     }
 
-    public void onAddCourseClicked(View view){
+    public void onAddCourseClicked(View view) {
+        //need to also generate newPersonId that changes.
+        // int newPersonId = db.coursesDao().maxId() +1; only put in the person in the db once all courses are added
+        //when add course, put that course in the current person's list, keep updating person. Only change perosn id at the end when adding the person to db
 
         int newCourseId = db.coursesDao().maxId() + 1;
         Spinner quarterSchool = (Spinner) findViewById(R.id.quarter);
@@ -67,17 +75,28 @@ public class UserClass extends AppCompatActivity {
         String year = yearTV.getText().toString();
         String course = courseTV.getText().toString();
 
-        Course newCourse = new Course(newCourseId, year, quarter, course, number);
-        if(year.equals("") || course.equals("") || number.equals(""))
-        {
+        Course newCourse = new Course(newCourseId, 0, year, quarter, course, number);
+        if (year.equals("") || course.equals("") || number.equals("")) {
             Utilities.showAlert(this, "Missing Value");
-        }
-        else
-        {
-            db.coursesDao().insert(newCourse);
+        } else {
+            db.coursesDao().getCoursesForPerson(0).add(newCourse);
             coursesViewAdapter.addCourse(newCourse);
         }
     }
+    //public void  onEnterClicked(View view) {// adding  a course to a person courses list, gettin the personid
+    /*
+    Context context = view.getContext();
+    Intent intent = new Intent (context, HomeScreen.class);
+    context.startActivity(intent);
+    */
+
+    // getList using personID
+
+   // db.personDa.insert(person)
+    //then int newPersonId = db.personDao().maxId() + 1;
+
+    // }
+
 
     public void goBack(View view) {
         finish();

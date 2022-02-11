@@ -1,6 +1,7 @@
 package com.benlau.bofteam1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +11,8 @@ import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
-
+  //all Recylerview code is experimental now
+  protected RecyclerView personsRecyclerView;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

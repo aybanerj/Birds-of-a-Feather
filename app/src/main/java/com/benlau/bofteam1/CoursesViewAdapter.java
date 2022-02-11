@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.function.Consumer;
-
+//not sure this will be used
 public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.ViewHolder> {
     private final List<Course> courses;
     private final Consumer<Course> onCourseRemoved;
@@ -93,7 +93,7 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
 
         public void setCourse(Course course){
             this.course  = course;
-            this.courseNameView.setText(course.getCourse());
+            this.courseNameView.setText(course.getFullCourse());
         }
     }
 

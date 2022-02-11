@@ -1,6 +1,7 @@
 package com.benlau.bofteam1.db;
 
-
+/*
+Don't need this right now
 import com.benlau.bofteam1.ICourse;
 
 public class DummyCourse implements ICourse {
@@ -29,3 +30,4 @@ public class DummyCourse implements ICourse {
         return courseDisplay;
     }
 }
+*/

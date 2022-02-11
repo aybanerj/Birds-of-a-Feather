@@ -4,5 +4,10 @@ import java.util.List;
 
 public interface ICourse {
     int getId();
-    String getCourse();
+    String getFullCourse();
+    String getQuarter();
+    String getCourseName();
+    String getCourseNumber();
+
+
 }
