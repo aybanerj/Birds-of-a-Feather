@@ -9,7 +9,7 @@ public class Person {
     @PrimaryKey(autoGenerate = true)//want to keep updating person Id
     //id to reference a person by
     @ColumnInfo(name = "person_id")
-    private int personId = 0; //start with 0, making static is bad practice
+    public int personId = 0; //start with 0, making static is bad practice
     @ColumnInfo(name = "firstName")
     private String personName;
 
