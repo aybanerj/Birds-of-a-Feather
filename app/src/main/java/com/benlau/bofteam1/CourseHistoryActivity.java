@@ -14,15 +14,16 @@ import android.widget.TextView;
 
 import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
-import com.benlau.bofteam1.db.DummyCourse;
+import com.benlau.bofteam1.db.CoursesViewAdapter;
 
 import java.util.List;
 
-public class UserClass extends AppCompatActivity {
+public class CourseHistoryActivity extends AppCompatActivity {
     protected RecyclerView coursesRecyclerView;
     protected RecyclerView.LayoutManager coursesLayoutManager;
     protected CoursesViewAdapter coursesViewAdapter;
     private AppDatabase db;
+
 
 //    protected ICourse[] data = {
 //            new DummyCourse(0, "Fall", "2020",  "CSE",  "21"),
@@ -36,7 +37,8 @@ public class UserClass extends AppCompatActivity {
         setContentView(R.layout.activity_user_class);
         setTitle("Course History");
 
-        db = AppDatabase.singleton(getApplicationContext());
+        //db = AppDatabase.singleton(getApplicationContext());
+        db = AppDatabase.singleton(this);
         List<Course> courses = db.coursesDao().myCourses();
 
         Spinner quarter = findViewById(R.id.quarter);
@@ -49,14 +51,13 @@ public class UserClass extends AppCompatActivity {
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
 
-        coursesViewAdapter = new CoursesViewAdapter(courses, (course) -> db.coursesDao().delete(course));
+        coursesViewAdapter = new CoursesViewAdapter(courses, (course) -> { db.coursesDao().delete(course);});
         coursesRecyclerView.setAdapter(coursesViewAdapter);
 
 
     }
 
     public void onAddCourseClicked(View view){
-
         int newCourseId = db.coursesDao().maxId() + 1;
         Spinner quarterSchool = (Spinner) findViewById(R.id.quarter);
         TextView numberTV = findViewById(R.id.courseID);
@@ -74,10 +75,33 @@ public class UserClass extends AppCompatActivity {
         }
         else
         {
+            /*
+             if List<Courses> contains the newCourse
+
+             */
             db.coursesDao().insert(newCourse);
             coursesViewAdapter.addCourse(newCourse);
+            //TextView Output to Test Course Addition
+            //TextView addedCourse = findViewById(R.id.testingList);
+            //addedCourse.setText(newCourse.getCourse());
+            //tests whether the newly added course is INDEED in the List of Courses List<Courses> courses
+            //addedCourse.setText(String.valueOf(db.coursesDao().myCourses().contains(newCourse)));
+            //String test = "";
+            //for (int i = 0; i < db.coursesDao().myCourses().size(); i++) {
+            //    test = test + " " + db.coursesDao().myCourses().get(i).getCourse();
+            //}
+            //addedCourse.setText(test);
+
         }
     }
+
+    //todo :)
+    //UNCOMMENT WHEN READY TO INTEGRATE HOMESCREEN!!
+    /*
+    public void onDoneClicked(View v) {
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        startActivity(intent);
+    }*/
 
     public void goBack(View view) {
         finish();

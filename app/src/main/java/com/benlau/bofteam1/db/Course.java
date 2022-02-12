@@ -30,7 +30,7 @@ public class Course implements ICourse {
         this.quarter = quarter;
         this.courseName = courseName;
         this.courseNumber = courseNumber;
-        String fullCourse = year + " " + quarter + " " + courseName + " " + courseNumber;
+        String fullCourse = year + " " + quarter + " " + courseName + " " + courseNumber + " ID: " + id;
         this.fullCourse = fullCourse;
     }
 

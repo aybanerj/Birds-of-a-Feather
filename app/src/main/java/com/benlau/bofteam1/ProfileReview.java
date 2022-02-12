@@ -6,16 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.SharedPreferences;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -83,8 +80,8 @@ public class ProfileReview extends AppCompatActivity {
      */
     public void onConfirmClicked(View v) {
         //UNCOMMENT WHEN READY TO INTEGRATE!!!!!!
-        //Intent intent = new Intent(this, UserClass.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, CourseHistoryActivity.class);
+        startActivity(intent);
     }
 
     private class LoadImage extends AsyncTask<String, Void, Bitmap> {
