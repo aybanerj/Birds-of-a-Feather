@@ -16,6 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.SharedPreferences;
+
+import com.benlau.bofteam1.db.AppDatabase;
+import com.benlau.bofteam1.db.Person;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -25,6 +29,7 @@ public class ProfileReview extends AppCompatActivity {
     ImageView URL_pic;
     Button load;
     TextView textView;
+    AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +90,12 @@ public class ProfileReview extends AppCompatActivity {
         //UNCOMMENT WHEN READY TO INTEGRATE!!!!!!
         Intent intent = new Intent(this, UserClass.class);
         startActivity(intent);
+        //creating a new person when profile is made and adding them to db
+        //hardcoding common courses to 0
+        Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0");
+        db.personsDao().insert(newPerson);
+        //then retrieve this person with db.personsDao().get(0)
+        //retrive this person's list of courses with db.coursesDao().getCoursesForPerson(0)
     }
 
 //    private class LoadImage extends AsyncTask<String, Void, Bitmap> {

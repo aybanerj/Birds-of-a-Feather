@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/layout/activity_profile_review.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_user_class.xml" value="0.25" />
         <entry key="app/src/main/res/layout/course_row.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/persons_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/student_row.xml" value="0.25" />
       </map>
     </option>

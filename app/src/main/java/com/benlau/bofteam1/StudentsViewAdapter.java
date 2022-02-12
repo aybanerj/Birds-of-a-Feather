@@ -12,10 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapter.ViewHolder> {
-    private final DummyStudent[] students;
+import com.benlau.bofteam1.db.IPerson;
+import com.benlau.bofteam1.db.Person;
 
-    public StudentsViewAdapter(DummyStudent[] students){
+import java.util.List;
+
+public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapter.ViewHolder> {
+    private final List<Person> students;
+
+    public StudentsViewAdapter(List<Person> students){
         super();
         this.students = students;
     }
@@ -28,21 +33,21 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull StudentsViewAdapter.ViewHolder holder, int position){
-        holder.setStudent(students[position]);
-        holder.setStudentUrl(students[position]);
-        holder.setCourseCount(students[position]);
+        holder.setStudent(students.get(position));
+        holder.setStudentUrl(students.get(position));
+        holder.setCourseCount(students.get(position));
     }
 
     @Override
     public int getItemCount(){
-        return this.students.length;
+        return this.students.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final TextView studentNameView;
         private final TextView courseCountView;
         private final ImageView studentUrl;
-        private DummyStudent student;
+        private Person student;
 
         ViewHolder(View itemView){
             super(itemView);
@@ -53,18 +58,18 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
             itemView.setOnClickListener(this);
         }
 
-        public void setStudent(DummyStudent student){
+        public void setStudent(Person student){
             this.student = student;
-            this.studentNameView.setText(student.name);
+            this.studentNameView.setText(student.getName());
         }
 
-        public void setCourseCount(DummyStudent student){
-            this.courseCountView.setText(student.numCommon);
+        public void setCourseCount(Person student){
+            this.courseCountView.setText(student.getCommonCourses());
         }
 
-        public void setStudentUrl(DummyStudent student){
+        public void setStudentUrl(Person student){
             LoadImage loadImage = new LoadImage(this.studentUrl);
-            loadImage.execute(student.photoUrl);
+            loadImage.execute(student.getPhotoUrl());
         }
 
         // uncomment when integrating with story 4

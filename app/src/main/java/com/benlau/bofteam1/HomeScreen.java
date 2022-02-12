@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
+import com.benlau.bofteam1.db.Person;
 
 import java.util.List;
 
@@ -33,11 +34,14 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         setTitle("Birds of a Feather");
 
+        db = AppDatabase.singleton(getApplicationContext());
+        List<Person> persons = db.personsDao().getAllPeople();
+
         studentsRecyclerView = findViewById(R.id.student_view);
         studentsLayoutManager = new LinearLayoutManager(this);
         studentsRecyclerView.setLayoutManager(studentsLayoutManager);
 
-        studentsViewAdapter = new StudentsViewAdapter(data);
+        studentsViewAdapter = new StudentsViewAdapter(persons);
         studentsRecyclerView.setAdapter(studentsViewAdapter);
 
 
