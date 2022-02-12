@@ -51,6 +51,9 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/remove_course_button" />
+
+        <!-- a TextView to output List contents to retroactively test  List and database management -->
+        <!-- COMMENT WHEN NOT IN USE -->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

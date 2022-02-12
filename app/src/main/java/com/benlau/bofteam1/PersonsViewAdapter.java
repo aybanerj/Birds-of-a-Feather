@@ -59,7 +59,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
 
         public void setPerson(Person person) {
             this.person = person;
-            this.personNameView.setText(person.getName());
+            this.personNameView.setText(person.getPersonName());
         }
 
         @Override

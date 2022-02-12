@@ -11,8 +11,6 @@ import java.util.List;
     @Dao
     public interface PersonDao
     {
-        //doesn't recognize persons tablename and person_id bc PersonsViewAdapater not written
-
         @Transaction
         @Query("SELECT * FROM persons")
         List<Person> getAllPeople();
@@ -23,11 +21,6 @@ import java.util.List;
 
         @Insert
         void insert(Person person);
-
-
-
-
-
     }
 
 

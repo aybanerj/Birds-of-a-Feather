@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.benlau.bofteam1">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,11 +15,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BOFTeam1">
+<!--        <activity-->
+<!--            android:name=".FakedMessageListenerActivity"-->
+<!--            android:exported="false" />-->
+
+        <meta-data
+            android:name="com.google.android.nearby.messages.API_KEY"
+            android:value="AIzaSyBF7kfydqezHUqwZYe7e0X1RyiRk6gASA8" />
+
         <activity
             android:name=".HomeScreen"
             android:exported="false" />
         <activity
-            android:name=".UserClass"
+            android:name=".CourseHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileReview"

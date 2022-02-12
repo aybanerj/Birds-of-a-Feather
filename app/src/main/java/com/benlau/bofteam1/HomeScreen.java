@@ -34,7 +34,7 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         setTitle("Birds of a Feather");
 
-        db = AppDatabase.singleton(getApplicationContext());
+        db = AppDatabase.getDatabase(getApplicationContext());
         List<Person> persons = db.personsDao().getAllPeople();
 
         studentsRecyclerView = findViewById(R.id.student_view);

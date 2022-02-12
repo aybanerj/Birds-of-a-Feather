@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.benlau.bofteam1.db.Course;
 import com.benlau.bofteam1.db.IPerson;
 import com.benlau.bofteam1.db.Person;
 
@@ -33,14 +34,21 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull StudentsViewAdapter.ViewHolder holder, int position){
-        holder.setStudent(students.get(position));
-        holder.setStudentUrl(students.get(position));
-        holder.setCourseCount(students.get(position));
+        if(position!= 0) {
+            holder.setStudent(students.get(position));
+            holder.setStudentUrl(students.get(position));
+            holder.setCourseCount(students.get(position));
+        }
     }
 
     @Override
     public int getItemCount(){
         return this.students.size();
+    }
+
+    public void addStudent(Person student){
+        this.students.add(student);
+        this.notifyItemInserted(this.students.size() - 1);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -60,7 +68,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
 
         public void setStudent(Person student){
             this.student = student;
-            this.studentNameView.setText(student.getName());
+            this.studentNameView.setText(student.getPersonName());
         }
 
         public void setCourseCount(Person student){

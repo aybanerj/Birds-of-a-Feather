@@ -37,7 +37,7 @@ public class Person {
         this.personId = personId;
     }
 
-    public String getName() {
+    public String getPersonName() {
         return personName;
     }
     public void setName(String name) {

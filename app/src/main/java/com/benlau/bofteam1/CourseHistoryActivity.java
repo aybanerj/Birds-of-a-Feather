@@ -17,13 +17,16 @@ import android.widget.TextView;
 import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
 
+import com.benlau.bofteam1.db.CoursesViewAdapter;
+
 import java.util.List;
 
-public class UserClass extends AppCompatActivity {
+public class CourseHistoryActivity extends AppCompatActivity {
     protected RecyclerView coursesRecyclerView;
     protected RecyclerView.LayoutManager coursesLayoutManager;
     protected CoursesViewAdapter coursesViewAdapter;
     private AppDatabase db;
+
 
 //    protected ICourse[] data = {
 //            new DummyCourse(0, "Fall", "2020",  "CSE",  "21"),
@@ -36,9 +39,12 @@ public class UserClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_class);
         setTitle("Course History");
-
-        db = AppDatabase.singleton(getApplicationContext());
+        db = AppDatabase.getDatabase(getApplicationContext());
         List<Course> courses = db.coursesDao().getCoursesForPerson(0);//the first person
+
+        //db = AppDatabase.singleton(getApplicationContext());
+        //db = AppDatabase.singleton(this);
+        //List<Course> courses = db.coursesDao().myCourses();
 
         Spinner quarter = findViewById(R.id.quarter);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
@@ -49,16 +55,8 @@ public class UserClass extends AppCompatActivity {
         coursesRecyclerView = findViewById(R.id.my_courses);
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
-
-        coursesViewAdapter = new CoursesViewAdapter(courses, (course) ->{ db.coursesDao().delete(course);});
+        coursesViewAdapter = new CoursesViewAdapter(courses, (course) -> { db.coursesDao().delete(course);});
         coursesRecyclerView.setAdapter(coursesViewAdapter);
-
-
-        //Just going to insert some mocked values for now into databse to simulate classmates' courses
-        //can predefine a .db file to preassign to database
-        //Course classmate1 = new Course(newCourseId, year, quarter, course, number);
-
-
     }
 
     public void onAddCourseClicked(View view) {
@@ -84,24 +82,11 @@ public class UserClass extends AppCompatActivity {
             coursesViewAdapter.addCourse(newCourse);
         }
     }
-    //public void  onEnterClicked(View view) {// adding  a course to a person courses list, gettin the personid
-    /*
-    Context context = view.getContext();
-    Intent intent = new Intent (context, HomeScreen.class);
-    context.startActivity(intent);
-    */
-
-    // getList using personID
-
-   // db.personDa.insert(person)
-    //then int newPersonId = db.personDao().maxId() + 1;
-
-    // }
 
 
-    public void onEnterClicked(View view){
+    public void onDoneClicked(View view) {
         Context context = view.getContext();
-        Intent intent = new Intent(context, HomeScreen.class);
+        Intent intent = new Intent(this, HomeScreen.class);
         context.startActivity(intent);
     }
 
