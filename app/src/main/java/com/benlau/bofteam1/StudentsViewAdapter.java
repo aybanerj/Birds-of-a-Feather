@@ -51,13 +51,13 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         this.notifyItemInserted(this.students.size() - 1);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView studentNameView;
         private final TextView courseCountView;
         private final ImageView studentUrl;
         private Person student;
 
-        ViewHolder(View itemView){
+        ViewHolder(View itemView) {
             super(itemView);
             this.studentNameView = itemView.findViewById(R.id.student_row_name);
             this.courseCountView = itemView.findViewById(R.id.num_common);
@@ -66,25 +66,26 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
             itemView.setOnClickListener(this);
         }
 
-        public void setStudent(Person student){
+        public void setStudent(Person student) {
             this.student = student;
             this.studentNameView.setText(student.getPersonName());
         }
 
-        public void setCourseCount(Person student){
+        public void setCourseCount(Person student) {
             this.courseCountView.setText(student.getCommonCourses());
         }
 
-        public void setStudentUrl(Person student){
+        public void setStudentUrl(Person student) {
             LoadImage loadImage = new LoadImage(this.studentUrl);
             loadImage.execute(student.getPhotoUrl());
         }
 
-        // uncomment when integrating with story 4
         @Override
-        public void onClick(View view){
-            Context context = view.getContext();
-           // Intent intent = new Intent(context, StudentDetailActivity.class)
+        public void onClick(View view) {
+//            Context context = view.getContext();
+//            Intent intent = new Intent(context, PersonDetailActivity.class);
+//            intent.putExtra("person_name", this.person.getPersonId());
+//            context.startActivity(intent);
         }
     }
 }

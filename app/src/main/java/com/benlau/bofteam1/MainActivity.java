@@ -19,12 +19,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.messages.Message;
-import com.google.android.gms.nearby.messages.MessageListener;
-import com.google.android.gms.nearby.messages.MessagesClient;
-import com.google.android.gms.nearby.messages.MessagesOptions;
-import com.google.android.gms.nearby.messages.NearbyPermissions;
+//import com.google.android.gms.nearby.Nearby;
+//import com.google.android.gms.nearby.messages.Message;
+//import com.google.android.gms.nearby.messages.MessageListener;
+//import com.google.android.gms.nearby.messages.MessagesClient;
+//import com.google.android.gms.nearby.messages.MessagesOptions;
+//import com.google.android.gms.nearby.messages.NearbyPermissions;
 
 
 public class MainActivity extends AppCompatActivity {

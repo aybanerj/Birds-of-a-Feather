@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,7 +45,13 @@ public class HomeScreen extends AppCompatActivity {
 
         studentsViewAdapter = new StudentsViewAdapter(persons);
         studentsRecyclerView.setAdapter(studentsViewAdapter);
-
-
     }
+
+
+    public void onStartClicked(View view) {
+        Intent intent = new Intent(this, FakedMessageListenerActivity.class);
+        startActivity(intent);
+    }
+
+
 }

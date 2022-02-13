@@ -15,10 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BOFTeam1">
-<!--        <activity-->
-<!--            android:name=".FakedMessageListenerActivity"-->
-<!--            android:exported="false" />-->
-
+        <activity
+            android:name=".FakedMessageListenerActivity"
+            android:exported="false" />
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
             android:value="AIzaSyBF7kfydqezHUqwZYe7e0X1RyiRk6gASA8" />

@@ -27,13 +27,13 @@
 
         <TextView
             android:id="@+id/student_row_name"
-            android:layout_width="100dip"
+            android:layout_width="150dip"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginStart="16dp"
             android:height="32sp"
             android:lineHeight="32sp"
-            android:text="@tools:sample/full_names"
+            android:text="Classmates"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,10 +49,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="76dp"
-            android:layout_marginEnd="16dp"
-            android:text="TextView"
+            android:text="# Common"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/student_row_name"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.511" />
