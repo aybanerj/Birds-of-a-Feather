@@ -73,12 +73,13 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
         Person newPerson = new Person(list.get(0), list.get(1), "0");
         db.personsDao().insert(newPerson);
 
-        ArrayList<String> stringArray;
+        List<Person> personList = db.personsDao().getAllPeople();
+        Person temp = personList.get(personList.size()-1);
+        String[] stringArray;
         //assuming list size at least 2
         for (int i = 2; i < list.size(); i++) {
-            stringArray = (ArrayList<String>) Arrays.asList(list.get(i).split(","));
-            newCourse = new Course(newCourseId, 2, stringArray.get(0), stringArray.get(1), stringArray.get(2), stringArray.get(3));
-
+            stringArray = list.get(i).split(",");
+            newCourse = new Course(0, temp.getPersonId(), stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
             db.coursesDao().insert(newCourse);
         }
 
@@ -101,7 +102,6 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
         Person temp = personList.get(1);
         //assuming list size at least 2
         String[] stringArray;
-
         for (int i = 2; i < list.size(); i++) {
             stringArray = list.get(i).split(",");
             newCourse = new Course(newCourseId, temp.getPersonId(), stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
@@ -112,15 +112,18 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
         //studentsViewAdapter.addStudent(newPerson);
         calculateCommonCourses(newPerson);
 
+        personList = db.personsDao().getAllPeople();
+
         Intent intent = new Intent(this, HomeScreen.class);
         startActivity(intent);
     }
     public void calculateCommonCourses(Person newPerson) {
+        List<Person> personList = db.personsDao().getAllPeople();
+        Person temp = personList.get(personList.size()-1);
         List<String> commonCourseNames = new ArrayList<String>();
         int commonCounter = 0;
-        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForPerson(newPerson.getPersonId());
-        List<Course> coursesForAppUser = db.coursesDao().getCoursesForPerson(0);
-
+        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForPerson(temp.getPersonId());
+        List<Course> coursesForAppUser = db.coursesDao().getCoursesForPerson(1);
 
         for (int i=0; i < coursesForNewPerson.size(); i++){
             for(int j=0; j < coursesForAppUser.size(); j++){
@@ -129,10 +132,10 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
                     commonCourseNames.add(coursesForAppUser.get(j).getFullCourse());
                 }
             }
-        newPerson.setCommonCourses(String.valueOf(commonCounter));
-        //newPerson.setCommonCoursesWithAppUser(commonCourseNames);
-        }
 
+        temp.setCommonCourses(String.valueOf(commonCounter));
+        db.personsDao().UpdatePerson(temp);
+        }
     }
 
 

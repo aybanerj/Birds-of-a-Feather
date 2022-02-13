@@ -61,23 +61,20 @@ public class PersonFileDetailActivity extends AppCompatActivity {
     }
 
     public ArrayList<String> calculateCommonCourses(Person newPerson) {
+        List<Person> personList = db.personsDao().getAllPeople();
+        Person temp = personList.get(personList.size()-1);
         ArrayList<String> commonCourseNames = new ArrayList<String>();
-        int commonCounter = 0;
-        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForPerson(newPerson.getPersonId());
-        List<Course> coursesForAppUser = db.coursesDao().getCoursesForPerson(0);
+        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForPerson(temp.getPersonId());
+        List<Course> coursesForAppUser = db.coursesDao().getCoursesForPerson(1);
 
-        List<Person> persons = db.personsDao().getAllPeople();
 
         for (int i=0; i < coursesForNewPerson.size(); i++){
             for(int j=0; j < coursesForAppUser.size(); j++){
                 if (coursesForNewPerson.get(i).getFullCourse().toUpperCase().equals(coursesForAppUser.get(j).getFullCourse().toUpperCase())){
-                    commonCounter++;
                     commonCourseNames.add(coursesForAppUser.get(j).getFullCourse());
                 }
             }
-            newPerson.setCommonCourses(String.valueOf(commonCounter));
         }
-
         return commonCourseNames;
     }
 }
