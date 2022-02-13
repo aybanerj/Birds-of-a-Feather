@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ProfileReview extends AppCompatActivity {
+public class ProfileReviewActivity extends AppCompatActivity {
 
     ImageView URL_pic;
     Button load;

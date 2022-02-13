@@ -9,7 +9,7 @@ import androidx.room.Transaction;
 import java.util.List;
 
 @Dao
-public interface CourseDAO
+public interface CourseDao
 {
     @Transaction
     @Query("SELECT * FROM course_history where person_id=:personId")

@@ -21,7 +21,7 @@ import com.benlau.bofteam1.db.CoursesViewAdapter;
 
 import java.util.List;
 
-public class CourseHistoryActivity extends AppCompatActivity {
+public class CourseHistoryActivity extends AppCompatActivity implements OnEditClickListener {
     protected RecyclerView coursesRecyclerView;
     protected RecyclerView.LayoutManager coursesLayoutManager;
     protected CoursesViewAdapter coursesViewAdapter;
@@ -55,8 +55,10 @@ public class CourseHistoryActivity extends AppCompatActivity {
         coursesRecyclerView = findViewById(R.id.my_courses);
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
-        coursesViewAdapter = new CoursesViewAdapter(courses, (course) -> { db.coursesDao().delete(course);});
+        coursesViewAdapter = new CoursesViewAdapter(courses, (course) -> db.coursesDao().delete(course), this);
         coursesRecyclerView.setAdapter(coursesViewAdapter);
+
+
     }
 
     public void onAddCourseClicked(View view) {
@@ -75,14 +77,61 @@ public class CourseHistoryActivity extends AppCompatActivity {
         String course = courseTV.getText().toString();
 
         Course newCourse = new Course(newCourseId, 1, year, quarter, course, number);
-        if (year.equals("") || course.equals("") || number.equals("")) {
-            Utilities.showAlert(this, "Missing Value");
-        } else {
+        if(year.equals(""))
+        {
+            Utilities.showAlert(this, "Missing Value: year\nex: 20XX");
+        }
+        else if(course.equals(""))
+        {
+            Utilities.showAlert(this, "Missing Value: cours\nex: CSE");
+        }
+        else if(number.equals(""))
+        {
+            Utilities.showAlert(this, "Missing Value: numbe\nex: 8A");
+        }
+        else
+        {
             db.coursesDao().insert(newCourse);
             coursesViewAdapter.addCourse(newCourse);
         }
     }
 
+    @Override
+    public void onEditClick(String dataPassed) {
+        if(dataPassed != null) {
+            String[] data = dataPassed.split(" ");
+
+            TextView numberTV = findViewById(R.id.courseID);
+            TextView yearTV = findViewById(R.id.year);
+            TextView courseTV = findViewById(R.id.course);
+            yearTV.setText(data[0]);
+            courseTV.setText(data[2]);
+            numberTV.setText(data[3]);
+            Spinner quarterSchool = findViewById(R.id.quarter);
+            switch (data[1]) {
+                case "FA":
+                    quarterSchool.setSelection(0);
+                    break;
+                case "WI":
+                    quarterSchool.setSelection(1);
+                    break;
+                case "SP":
+                    quarterSchool.setSelection(2);
+                    break;
+                case "SS1":
+                    quarterSchool.setSelection(3);
+                    break;
+                case "SS2":
+                    quarterSchool.setSelection(4);
+                    break;
+                case "SSS":
+                    quarterSchool.setSelection(5);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
     public void onDoneClicked(View view) {
         Context context = view.getContext();

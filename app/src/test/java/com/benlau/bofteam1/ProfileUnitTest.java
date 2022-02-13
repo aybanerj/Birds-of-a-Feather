@@ -11,6 +11,5 @@ import org.junit.Test;
 
 public class ProfileUnitTest {
 
-//IN THE PROCESS OF WRITING TESTS
 
 }
