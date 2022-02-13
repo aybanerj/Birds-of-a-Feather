@@ -1,9 +1,12 @@
 package com.benlau.bofteam1;
 
+import android.content.Intent;
+
 public class FirstName {
   private String firstName;
 
   public FirstName(String name) {
+
     firstName = name;
   }
 

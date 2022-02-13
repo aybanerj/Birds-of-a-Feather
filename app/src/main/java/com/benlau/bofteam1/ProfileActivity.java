@@ -1,13 +1,19 @@
 package com.benlau.bofteam1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.nearby.Nearby;
+import com.google.android.gms.nearby.messages.Message;
+import com.google.android.gms.nearby.messages.MessageListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -19,14 +25,23 @@ public class ProfileActivity extends AppCompatActivity {
     //this is so that when you go back to edit your profile, it does not autofill from Google every time
     //Let me (Mark) know if this functionality is undesirable - that is, you want autofill every time
     boolean initialSetup = true;
+    private MessageListener messageListener;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //print statement to verify that this activity is being created
-        System.out.println("Profile Activity Created");
+        //System.out.println("Profile Activity Created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        //IN THE SPIRIT OF MOCKING
+        //Here we have this line whose ONLY purpose is to display the bluetooth permissions
+        //dialogue box.  It is PURELY DECORATION!!!
+        //MessageListener realListener = new MessageListener() {};
+        //Nearby.getMessagesClient(this).subscribe(messageListener);
+
+
         //load data here
         if (initialSetup == true) {
             //autofills Google Login information
@@ -34,7 +49,6 @@ public class ProfileActivity extends AppCompatActivity {
         //load profile from hashmap
         this.loadProfile();
     }
-
 
 
     /*

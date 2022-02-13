@@ -1,24 +1,20 @@
-package com.benlau.bofteam1;
+package com.benlau.bofteam1.db;
 
-import android.content.Context;
-import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.benlau.bofteam1.db.Course;
-
-import org.w3c.dom.Text;
+import com.benlau.bofteam1.R;
 
 import java.util.List;
 import java.util.function.Consumer;
-
+//not sure this will be used
 public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.ViewHolder> {
     private final List<Course> courses;
     private final Consumer<Course> onCourseRemoved;
@@ -58,8 +54,7 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
         this.notifyItemRemoved(position);
     }
 
-    public static class ViewHolder
-            extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView courseNameView;
         private Course course;
 
@@ -93,7 +88,7 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
 
         public void setCourse(Course course){
             this.course  = course;
-            this.courseNameView.setText(course.getCourse());
+            this.courseNameView.setText(course.getFullCourse());
         }
     }
 

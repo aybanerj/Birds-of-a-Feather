@@ -1,21 +1,24 @@
 package com.benlau.bofteam1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.SharedPreferences;
+
+import com.benlau.bofteam1.db.AppDatabase;
+import com.benlau.bofteam1.db.Person;
+
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -25,36 +28,19 @@ public class ProfileReview extends AppCompatActivity {
     ImageView URL_pic;
     Button load;
     TextView textView;
+    AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_review);
-        /*
-        URL_pic = findViewById(R.id.test_url);
-
-        load = findViewById(R.id.button);
-        textView = findViewById(R.id.editTextTextPersonName);
-
-
-        load.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String urlLink = textView.getText().toString();
-
-                LoadImage loadimage = new LoadImage(URL_pic);
-                loadimage.execute(urlLink);
-            }
-        });
-        */
-
         URL_pic = findViewById(R.id.test_url);
         LoadImage loadImage = new LoadImage(URL_pic);
         loadImage.execute(getProfileURL());
 
         TextView PreferredName = findViewById(R.id.PreferredName);
         PreferredName.setText(getPreferredName());
-
+        db = AppDatabase.singleton(getApplicationContext());
     }
 
     /*
@@ -82,38 +68,40 @@ public class ProfileReview extends AppCompatActivity {
      * Function launches the UserClass Activity which allows the user to input class history
      */
     public void onConfirmClicked(View v) {
-        //UNCOMMENT WHEN READY TO INTEGRATE!!!!!!
-        //Intent intent = new Intent(this, UserClass.class);
-        //startActivity(intent);
+        //creating a new person when profile is made and adding them to db
+        //hardcoding common courses to 0
+        Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0");
+        db.personsDao().insert(newPerson);
+        //then retrieve this person with db.personsDao().get(0)
+        //retrive this person's list of courses with db.coursesDao().getCoursesForPerson(0)
+        Intent intent = new Intent(this, CourseHistoryActivity.class);
+        startActivity(intent);
     }
 
-    private class LoadImage extends AsyncTask<String, Void, Bitmap> {
-
-
-
-
-        ImageView imageView;
-        public  LoadImage(ImageView URL_pic) {
-            this.imageView = URL_pic;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            String urlLink = strings[0];
-            Bitmap bitmap = null;
-            try {
-                InputStream inputStream = new URL(urlLink).openStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            }   catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            URL_pic.setImageBitmap(bitmap);
-        }
-    }
+//    private class LoadImage extends AsyncTask<String, Void, Bitmap> {
+//
+//        ImageView imageView;
+//        public  LoadImage(ImageView URL_pic) {
+//            this.imageView = URL_pic;
+//        }
+//
+//        @Override
+//        protected Bitmap doInBackground(String... strings) {
+//            String urlLink = strings[0];
+//            Bitmap bitmap = null;
+//            try {
+//                InputStream inputStream = new URL(urlLink).openStream();
+//                bitmap = BitmapFactory.decodeStream(inputStream);
+//            }   catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            return bitmap;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Bitmap bitmap) {
+//            URL_pic.setImageBitmap(bitmap);
+//        }
+//    }
 }
