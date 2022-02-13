@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
 import com.benlau.bofteam1.db.IPerson;
 import com.benlau.bofteam1.db.Person;
@@ -82,10 +83,11 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
 
         @Override
         public void onClick(View view) {
-//            Context context = view.getContext();
-//            Intent intent = new Intent(context, PersonDetailActivity.class);
-//            intent.putExtra("person_name", this.person.getPersonId());
-//            context.startActivity(intent);
+            Context context = view.getContext();
+            Intent intent = new Intent(context, PersonFileDetailActivity.class);
+            intent.putExtra("person_name", this.student.getPersonName());
+            intent.putExtra("url", this.student.getPhotoUrl());
+            context.startActivity(intent);
         }
     }
 }

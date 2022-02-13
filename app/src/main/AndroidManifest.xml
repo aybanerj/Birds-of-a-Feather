@@ -22,7 +22,7 @@
         <activity
             android:name=".HomeScreen"
 
-            android:name=".PersonFileDetail"
+            android:name=".PersonFileDetailActivity"
 
             android:exported="false" />
         <activity

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class PersonFileDetail extends AppCompatActivity {
+public class PersonFileDetailActivity extends AppCompatActivity {
 
     private TextView textView;
     private ImageView URL_pic;
@@ -26,9 +26,10 @@ public class PersonFileDetail extends AppCompatActivity {
         setContentView(R.layout.activity_person_file_detail);
 
         Intent intent = getIntent();
-        url = intent.getStringExtra("");
-        name = intent.getStringExtra("");
-        course = (ArrayList<String>) getIntent().getSerializableExtra("");
+        url = intent.getStringExtra("url");
+        name = intent.getStringExtra("person_name");
+        // todo: parse courselist into arraylist of strings
+        course = (ArrayList<String>) getIntent().getSerializableExtra("common_courses");
 
 
         URL_pic = findViewById(R.id.image_url);
@@ -40,7 +41,7 @@ public class PersonFileDetail extends AppCompatActivity {
 
         l = findViewById(R.id.list);
         ArrayAdapter<String> arr;
-        arr = new ArrayAdapter<String>(this, R.layout.row, course);
+        arr = new ArrayAdapter<String>(this, R.layout.student_detail_row, course);
         l.setAdapter(arr);
     }
 }
