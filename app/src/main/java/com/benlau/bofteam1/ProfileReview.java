@@ -22,6 +22,7 @@ import com.benlau.bofteam1.db.Person;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class ProfileReview extends AppCompatActivity {
 
@@ -70,7 +71,8 @@ public class ProfileReview extends AppCompatActivity {
     public void onConfirmClicked(View v) {
         //creating a new person when profile is made and adding them to db
         //hardcoding common courses to 0
-        Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0");
+        //empty list of courses for courses in common with itself, wont' make a difference
+        Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0", new ArrayList<String>());
         db.personsDao().insert(newPerson);
         //then retrieve this person with db.personsDao().get(0)
         //retrive this person's list of courses with db.coursesDao().getCoursesForPerson(0)

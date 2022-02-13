@@ -4,6 +4,8 @@ import androidx.room.Entity;
 import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
+import java.util.List;
+
 @Entity(tableName = "persons")
 public class Person {
     @PrimaryKey(autoGenerate = true)//want to keep updating person Id
@@ -19,12 +21,16 @@ public class Person {
     @ColumnInfo(name = "numCommon")
     private String commonCourses;
 
+    @ColumnInfo(name = "commonCoursesWithAppUser")
+    private List<String> commonCoursesWithAppUser;
 
-    public Person(String personName, String photoUrl, String commonCourses){
+
+    public Person(String personName, String photoUrl, String commonCourses, List<String> commonCoursesWithAppUser){
 
         this.personName = personName;
-        this.photoUrl = photoUrl;
+        this.photoUrl git= photoUrl;
         this.commonCourses = commonCourses;
+        this.commonCoursesWithAppUser = commonCoursesWithAppUser;
     }
 
 
@@ -43,11 +49,15 @@ public class Person {
     public void setName(String name) {
         this.personName = name;
     }
+    public void setCommonCoursesWithAppUser(List<String> courses) {
+        this.commonCoursesWithAppUser = courses;
+    }
 
     public String getPhotoUrl(){return photoUrl;}
     public void setPhotoUrl(String url){this.photoUrl = url;}
 
     public String getCommonCourses(){return commonCourses;}
+    public List<String> getCommonCoursesWithAppUser() {return commonCoursesWithAppUser;}
 
     public void setCommonCourses(String numCommon){this.commonCourses = numCommon;}
 
