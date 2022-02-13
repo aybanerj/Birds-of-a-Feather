@@ -9,7 +9,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.benlau.bofteam1.db.AppDatabase;
+import com.benlau.bofteam1.db.Course;
+import com.benlau.bofteam1.db.Person;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PersonFileDetailActivity extends AppCompatActivity {
 
@@ -18,18 +24,27 @@ public class PersonFileDetailActivity extends AppCompatActivity {
     private String url;
     private ListView l;
     private String name;
-    private ArrayList<String> course;
+    private int person_id;
+    private ArrayList<String> course = new ArrayList<>();
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_file_detail);
+        db = AppDatabase.getDatabase(getApplicationContext());
+
 
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
         name = intent.getStringExtra("person_name");
-        // todo: parse courselist into arraylist of strings
-        course = (ArrayList<String>) getIntent().getSerializableExtra("common_courses");
+        person_id = intent.getIntExtra("person_id",0);
+
+        //course = (ArrayList<String>) getIntent().getSerializableExtra("common_courses");
+        Person person = db.personsDao().getPersonByname(name);
+        course = calculateCommonCourses(person);
+
+        //course.add(person.getCommonCourses());
 
 
         URL_pic = findViewById(R.id.image_url);
@@ -43,5 +58,26 @@ public class PersonFileDetailActivity extends AppCompatActivity {
         ArrayAdapter<String> arr;
         arr = new ArrayAdapter<String>(this, R.layout.student_detail_row, course);
         l.setAdapter(arr);
+    }
+
+    public ArrayList<String> calculateCommonCourses(Person newPerson) {
+        ArrayList<String> commonCourseNames = new ArrayList<String>();
+        int commonCounter = 0;
+        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForPerson(newPerson.getPersonId());
+        List<Course> coursesForAppUser = db.coursesDao().getCoursesForPerson(0);
+
+        List<Person> persons = db.personsDao().getAllPeople();
+
+        for (int i=0; i < coursesForNewPerson.size(); i++){
+            for(int j=0; j < coursesForAppUser.size(); j++){
+                if (coursesForNewPerson.get(i).getFullCourse().toUpperCase().equals(coursesForAppUser.get(j).getFullCourse().toUpperCase())){
+                    commonCounter++;
+                    commonCourseNames.add(coursesForAppUser.get(j).getFullCourse());
+                }
+            }
+            newPerson.setCommonCourses(String.valueOf(commonCounter));
+        }
+
+        return commonCourseNames;
     }
 }

@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BOFTeam1">
         <activity
-
             android:name=".FakedMessageListenerActivity"
             android:exported="false" />
         <meta-data
@@ -21,9 +20,9 @@
 
         <activity
             android:name=".HomeScreen"
-
+            android:exported="false" />
+        <activity
             android:name=".PersonFileDetailActivity"
-
             android:exported="false" />
         <activity
             android:name=".CourseHistoryActivity"

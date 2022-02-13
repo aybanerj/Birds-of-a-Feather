@@ -74,11 +74,11 @@ public class CourseHistoryActivity extends AppCompatActivity {
         String year = yearTV.getText().toString();
         String course = courseTV.getText().toString();
 
-        Course newCourse = new Course(newCourseId, 0, year, quarter, course, number);
+        Course newCourse = new Course(newCourseId, 1, year, quarter, course, number);
         if (year.equals("") || course.equals("") || number.equals("")) {
             Utilities.showAlert(this, "Missing Value");
         } else {
-            db.coursesDao().getCoursesForPerson(0).add(newCourse);
+            db.coursesDao().insert(newCourse);
             coursesViewAdapter.addCourse(newCourse);
         }
     }

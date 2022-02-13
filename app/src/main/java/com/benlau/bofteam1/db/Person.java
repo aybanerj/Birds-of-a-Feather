@@ -20,17 +20,17 @@ public class Person {
 
     @ColumnInfo(name = "numCommon")
     private String commonCourses;
-
+    /*
     @ColumnInfo(name = "commonCoursesWithAppUser")
-    private List<String> commonCoursesWithAppUser;
+    private List<String> commonCoursesWithAppUser;*/
 
 
-    public Person(String personName, String photoUrl, String commonCourses, List<String> commonCoursesWithAppUser){
+    public Person(String personName, String photoUrl, String commonCourses){
 
         this.personName = personName;
-        this.photoUrl git= photoUrl;
+        this.photoUrl = photoUrl;
         this.commonCourses = commonCourses;
-        this.commonCoursesWithAppUser = commonCoursesWithAppUser;
+        //this.commonCoursesWithAppUser = commonCoursesWithAppUser;
     }
 
 
@@ -49,15 +49,16 @@ public class Person {
     public void setName(String name) {
         this.personName = name;
     }
+    /*
     public void setCommonCoursesWithAppUser(List<String> courses) {
         this.commonCoursesWithAppUser = courses;
-    }
+    }*/
 
     public String getPhotoUrl(){return photoUrl;}
     public void setPhotoUrl(String url){this.photoUrl = url;}
 
     public String getCommonCourses(){return commonCourses;}
-    public List<String> getCommonCoursesWithAppUser() {return commonCoursesWithAppUser;}
+    //public List<String> getCommonCoursesWithAppUser() {return commonCoursesWithAppUser;}
 
     public void setCommonCourses(String numCommon){this.commonCourses = numCommon;}
 

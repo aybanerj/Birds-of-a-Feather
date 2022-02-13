@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey;
 import com.benlau.bofteam1.ICourse;
 
 //is it a table of people, or table of courses
+
 @Entity(tableName = "course_history")
 public class Course implements ICourse {
+    //@PrimaryKey(autoGenerate = true)
     public int id; //course id is not very useful
     public String year;
     public String quarter;
@@ -36,8 +38,7 @@ public class Course implements ICourse {
         this.quarter = quarter;
         this.courseName = courseName;
         this.courseNumber = courseNumber;
-        String fullCourse = year + " " + quarter + " " + courseName + " " + courseNumber;
-        this.fullCourse = fullCourse;
+        this.fullCourse = year + " " + quarter + " " + courseName + " " + courseNumber;
     }
 
     @Override

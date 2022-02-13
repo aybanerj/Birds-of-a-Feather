@@ -72,7 +72,7 @@ public class ProfileReview extends AppCompatActivity {
         //creating a new person when profile is made and adding them to db
         //hardcoding common courses to 0
         //empty list of courses for courses in common with itself, wont' make a difference
-        Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0", new ArrayList<String>());
+        Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0");
         db.personsDao().insert(newPerson);
         //then retrieve this person with db.personsDao().get(0)
         //retrive this person's list of courses with db.coursesDao().getCoursesForPerson(0)

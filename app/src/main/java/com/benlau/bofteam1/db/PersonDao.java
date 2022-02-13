@@ -18,6 +18,8 @@ import java.util.List;
         @Query("SELECT * FROM persons WHERE person_id =:personId")
         Person get(int personId);
 
+        @Query("SELECT * FROM persons WHERE firstName =:name")
+        Person getPersonByname(String name);
 
         @Insert
         void insert(Person person);

@@ -60,39 +60,55 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
     public void onEnterClicked(View view) {
         EditText receivedProfile = findViewById(R.id.NearbyMessageMockedTextbox);
         String receivedString = receivedProfile.getText().toString();
-        /*
-        read in data entered into a textbox formatted in a csv file format via file I/O
-        note the commas to determine name/URL/classes
-        separate and place into string arrayList
-        split the string here until every part is an element in an arrayList
-        insert into database/add this person in the same way that you added the others
-         */
-        ArrayList<String> list = new ArrayList<>(Arrays.asList(receivedString.split("\n\n")));
+
+
+
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(receivedString.split(",,,")));
         receivedString = this.joinString(list);
-        list = new ArrayList<String>(Arrays.asList(receivedString.split(",")));
-        list.removeAll(Collections.singleton(""));
+        list = new ArrayList<String>(Arrays.asList(receivedString.split("\n\n")));
         receivedProfile.setText("");
 
-        //HMMM maybe gotta modify the database
-
-        /*
-        for the ArrayList
-        1st elem 0: Name
-        2nd elem 1: Photo URL
-        3rd-6th elem 2-5: Year, Quarter, Course, Number
-        7th-10th elem 6-9: Year, Quarter, Course, Number
-        ...
-        */
         int newCourseId = db.coursesDao().maxId() + 1;
         Course newCourse;
-        Person newPerson = new Person(list.get(0), list.get(1), "0", new ArrayList<String>());
+        Person newPerson = new Person(list.get(0), list.get(1), "0");
         db.personsDao().insert(newPerson);
 
+        ArrayList<String> stringArray;
         //assuming list size at least 2
-        for (int i = 2; i < list.size()-4; i++) {
-            newCourse = new Course(newCourseId, newPerson.getPersonId(), list.get(i), list.get(i+1), list.get(i+2), list.get(i+3));
-            db.coursesDao().getCoursesForPerson(newPerson.getPersonId()).add(newCourse);
+        for (int i = 2; i < list.size(); i++) {
+            stringArray = (ArrayList<String>) Arrays.asList(list.get(i).split(","));
+            newCourse = new Course(newCourseId, 2, stringArray.get(0), stringArray.get(1), stringArray.get(2), stringArray.get(3));
+
+            db.coursesDao().insert(newCourse);
         }
+
+
+
+
+
+        /*
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(receivedString.split(",,,")));
+        receivedString = this.joinString(list);
+        list = new ArrayList<String>(Arrays.asList(receivedString.split("\n\n")));
+        receivedProfile.setText("");
+
+        int newCourseId = db.coursesDao().maxId() + 1;
+        Course newCourse;
+        Person newPerson = new Person(list.get(0), list.get(1), "0");
+        db.personsDao().insert(newPerson);
+
+        List<Person> personList = db.personsDao().getAllPeople();
+        Person temp = personList.get(1);
+        //assuming list size at least 2
+        String[] stringArray;
+
+        for (int i = 2; i < list.size(); i++) {
+            stringArray = list.get(i).split(",");
+            newCourse = new Course(newCourseId, temp.getPersonId(), stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
+            //db.coursesDao().getCoursesForPerson(newPerson.getPersonId()).add(newCourse);
+            db.coursesDao().insert(newCourse);
+            //newCourseId++;
+        }*/
         //studentsViewAdapter.addStudent(newPerson);
         calculateCommonCourses(newPerson);
 
@@ -105,6 +121,7 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
         List<Course> coursesForNewPerson = db.coursesDao().getCoursesForPerson(newPerson.getPersonId());
         List<Course> coursesForAppUser = db.coursesDao().getCoursesForPerson(0);
 
+
         for (int i=0; i < coursesForNewPerson.size(); i++){
             for(int j=0; j < coursesForAppUser.size(); j++){
                 if (coursesForNewPerson.get(i).getFullCourse().toUpperCase().equals(coursesForAppUser.get(j).getFullCourse().toUpperCase())){
@@ -113,9 +130,8 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
                 }
             }
         newPerson.setCommonCourses(String.valueOf(commonCounter));
-        newPerson.setCommonCoursesWithAppUser(commonCourseNames);
+        //newPerson.setCommonCoursesWithAppUser(commonCourseNames);
         }
-
 
     }
 
