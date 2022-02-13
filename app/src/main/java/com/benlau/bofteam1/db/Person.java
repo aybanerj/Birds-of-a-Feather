@@ -28,7 +28,7 @@ public class Person {
     public Person(String personName, String photoUrl, String commonCourses, List<String> commonCoursesWithAppUser){
 
         this.personName = personName;
-        this.photoUrl = photoUrl;
+        this.photoUrl git= photoUrl;
         this.commonCourses = commonCourses;
         this.commonCoursesWithAppUser = commonCoursesWithAppUser;
     }
@@ -57,6 +57,7 @@ public class Person {
     public void setPhotoUrl(String url){this.photoUrl = url;}
 
     public String getCommonCourses(){return commonCourses;}
+    public List<String> getCommonCoursesWithAppUser() {return commonCoursesWithAppUser;}
 
     public void setCommonCourses(String numCommon){this.commonCourses = numCommon;}
 
