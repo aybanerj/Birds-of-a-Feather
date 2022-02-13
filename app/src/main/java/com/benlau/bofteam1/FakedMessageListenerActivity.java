@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class FakedMessageListenerActivity extends AppCompatActivity {
     //private MessageListener messageListener;
@@ -27,6 +28,7 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
 //    protected RecyclerView.LayoutManager studentsLayoutManager;
 //    protected StudentsViewAdapter studentsViewAdapter;
     private AppDatabase db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +94,31 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
             db.coursesDao().getCoursesForPerson(newPerson.getPersonId()).add(newCourse);
         }
         //studentsViewAdapter.addStudent(newPerson);
+        List<String> commonCourses = new ArrayList<String>();
+        commonCourses = calculateCommonCourses(newPerson);//not sure what to do with this list
+
         Intent intent = new Intent(this, HomeScreen.class);
         startActivity(intent);
+    }
+    public List<String> calculateCommonCourses(Person newPerson) {
+        List<String> commonCourseNames = new ArrayList<String>();
+        int commonCounter = 0;
+        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForPerson(newPerson.getPersonId());
+        List<Course> coursesForAppUser = db.coursesDao().getCoursesForPerson(0);
+
+        for (int i=0; i < coursesForNewPerson.size(); i++){
+            for(int j=0; j < coursesForAppUser.size(); j++){
+                if (coursesForNewPerson.get(i).getCourseName().toUpperCase().equals(coursesForAppUser.get(j).getCourseName().toUpperCase()) &&
+                        coursesForNewPerson.get(i).getCourseNumber().equals(coursesForAppUser.get(j).getCourseNumber())){
+                    commonCounter++;
+                    commonCourseNames.add(coursesForAppUser.get(j).getCourseName() + " " + coursesForAppUser.get(j).getCourseNumber());
+                }
+
+
+            }
+        }
+        newPerson.setCommonCourses(String.valueOf(commonCounter));
+        return commonCourseNames;
     }
 
 

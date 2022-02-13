@@ -48,6 +48,9 @@ public class Person {
     public void setPhotoUrl(String url){this.photoUrl = url;}
 
     public String getCommonCourses(){return commonCourses;}
+
     public void setCommonCourses(String numCommon){this.commonCourses = numCommon;}
+
+
 
 }
