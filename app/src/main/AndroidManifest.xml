@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.benlau.bofteam1">
 
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BOFTeam1">
         <activity
+
             android:name=".FakedMessageListenerActivity"
             android:exported="false" />
         <meta-data
@@ -24,6 +21,9 @@
 
         <activity
             android:name=".HomeScreen"
+
+            android:name=".PersonFileDetail"
+
             android:exported="false" />
         <activity
             android:name=".CourseHistoryActivity"

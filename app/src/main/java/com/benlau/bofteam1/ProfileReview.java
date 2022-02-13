@@ -77,31 +77,4 @@ public class ProfileReview extends AppCompatActivity {
         Intent intent = new Intent(this, CourseHistoryActivity.class);
         startActivity(intent);
     }
-
-//    private class LoadImage extends AsyncTask<String, Void, Bitmap> {
-//
-//        ImageView imageView;
-//        public  LoadImage(ImageView URL_pic) {
-//            this.imageView = URL_pic;
-//        }
-//
-//        @Override
-//        protected Bitmap doInBackground(String... strings) {
-//            String urlLink = strings[0];
-//            Bitmap bitmap = null;
-//            try {
-//                InputStream inputStream = new URL(urlLink).openStream();
-//                bitmap = BitmapFactory.decodeStream(inputStream);
-//            }   catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            return bitmap;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Bitmap bitmap) {
-//            URL_pic.setImageBitmap(bitmap);
-//        }
-//    }
 }
