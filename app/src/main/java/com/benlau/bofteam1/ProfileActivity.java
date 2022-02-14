@@ -1,18 +1,14 @@
 package com.benlau.bofteam1;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -27,7 +23,11 @@ public class ProfileActivity extends AppCompatActivity {
     boolean initialSetup = true;
     private MessageListener messageListener;
 
-
+    /**
+     * Method that creates the ProfileActivity activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //print statement to verify that this activity is being created
@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         //Nearby.getMessagesClient(this).subscribe(messageListener);
 
 
-        //load data here
+        //load data from Google here
         if (initialSetup == true) {
             //autofills Google Login information
         }
@@ -63,9 +63,10 @@ public class ProfileActivity extends AppCompatActivity {
      */
 
 
-    /*
+    /**
      * Function that launches the (Profile Review) screen using an intent
      * and SAVES the current profile
+     *
      * @param View - a view representing my political and social viewpoints (gonna read the lab again)
      */
     public void onSubmitClicked(View view) {
@@ -86,12 +87,15 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
         //only start Profile Review Activity after verifying the validity of name
-        Intent intent = new Intent(this, ProfileReview.class);
+        Intent intent = new Intent(this, ProfileReviewActivity.class);
         startActivity(intent);
         this.saveProfile();
 
     }
 
+    /**
+     * Method that destroys the ProfileActivity
+     */
     @Override
     protected void onDestroy() {
 
@@ -101,6 +105,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method that loads the User's Profile (name, photoURL) via SharedPreferences
+     */
     public void loadProfile() {
         SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
         //load from the hashmap
@@ -112,6 +119,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method that writes the User's Profile (name, photoURL) to disk via SharedPreferences
+     */
     public void saveProfile() {
         SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

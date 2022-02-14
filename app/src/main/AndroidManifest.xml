@@ -28,7 +28,7 @@
             android:name=".CourseHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileReview"
+            android:name=".ProfileReviewActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"

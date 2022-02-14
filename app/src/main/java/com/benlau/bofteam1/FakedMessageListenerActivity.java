@@ -61,62 +61,45 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
         EditText receivedProfile = findViewById(R.id.NearbyMessageMockedTextbox);
         String receivedString = receivedProfile.getText().toString();
 
+        if (receivedProfile.getText().toString().equals("")) {
+            Utilities.showAlert(this,"Please Input Mocked Information");
+        }
+        else {
+            //reads the data submitted after pressing Enter and parses it into an easily accessible format
+            ArrayList<String> list = new ArrayList<>(Arrays.asList(receivedString.split(",,,")));
+            receivedString = this.joinString(list);
+            list = new ArrayList<String>(Arrays.asList(receivedString.split("\n\n")));
+            receivedProfile.setText("");
+            Course newCourse;
+            Person newPerson = new Person(list.get(0), list.get(1), "0");
+            db.personsDao().insert(newPerson);
+
+            List<Person> personList = db.personsDao().getAllPeople();
+            Person temp = personList.get(personList.size()-1);
 
 
-        ArrayList<String> list = new ArrayList<>(Arrays.asList(receivedString.split(",,,")));
-        receivedString = this.joinString(list);
-        list = new ArrayList<String>(Arrays.asList(receivedString.split("\n\n")));
-        receivedProfile.setText("");
+            String[] stringArray;
+            //assuming list size at least 2
+            for (int i = 2; i < list.size(); i++) {
+                stringArray = list.get(i).split(",");
+                newCourse = new Course(0, temp.getPersonId(), stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
 
-        int newCourseId = db.coursesDao().maxId() + 1;
-        Course newCourse;
-        Person newPerson = new Person(list.get(0), list.get(1), "0");
-        db.personsDao().insert(newPerson);
-
-        List<Person> personList = db.personsDao().getAllPeople();
-        Person temp = personList.get(personList.size()-1);
-        String[] stringArray;
-        //assuming list size at least 2
-        for (int i = 2; i < list.size(); i++) {
-            stringArray = list.get(i).split(",");
-            newCourse = new Course(0, temp.getPersonId(), stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
-            db.coursesDao().insert(newCourse);
+                db.coursesDao().insert(newCourse);
+            }
+            calculateCommonCourses(temp);
+            Intent intent = new Intent(this, HomeScreen.class);
+            startActivity(intent);
         }
 
 
-
-
-
-        /*
-        ArrayList<String> list = new ArrayList<>(Arrays.asList(receivedString.split(",,,")));
-        receivedString = this.joinString(list);
-        list = new ArrayList<String>(Arrays.asList(receivedString.split("\n\n")));
-        receivedProfile.setText("");
-
-        int newCourseId = db.coursesDao().maxId() + 1;
-        Course newCourse;
-        Person newPerson = new Person(list.get(0), list.get(1), "0");
-        db.personsDao().insert(newPerson);
-
-        List<Person> personList = db.personsDao().getAllPeople();
-        Person temp = personList.get(1);
-        //assuming list size at least 2
-        String[] stringArray;
-        for (int i = 2; i < list.size(); i++) {
-            stringArray = list.get(i).split(",");
-            newCourse = new Course(newCourseId, temp.getPersonId(), stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
-            //db.coursesDao().getCoursesForPerson(newPerson.getPersonId()).add(newCourse);
-            db.coursesDao().insert(newCourse);
-            //newCourseId++;
-        }*/
-        //studentsViewAdapter.addStudent(newPerson);
-        calculateCommonCourses(newPerson);
-
-        personList = db.personsDao().getAllPeople();
-
-        Intent intent = new Intent(this, HomeScreen.class);
-        startActivity(intent);
     }
+
+    /**
+     * Method that calculates the number of common Courses between the User and a Classmate
+     * and sets this number in the commonCourses field for the Classmate stored in the database
+     *
+     * @param newPerson
+     */
     public void calculateCommonCourses(Person newPerson) {
         List<Person> personList = db.personsDao().getAllPeople();
         Person temp = personList.get(personList.size()-1);
@@ -137,21 +120,5 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
         db.personsDao().UpdatePerson(temp);
         }
     }
-
-
-
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        Nearby.getMessagesClient(this).subscribe(messageListener);
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        Nearby.getMessagesClient(this).unsubscribe(messageListener);
-//    }
-
 
 }

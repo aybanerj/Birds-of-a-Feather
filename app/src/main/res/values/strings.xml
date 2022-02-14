@@ -2,4 +2,38 @@
     <string name="app_name">BOFTeam1</string>
     <string name="past">Enter Past Course History</string>
     <string name="quarter">QUARTER</string>
+    <string name="year">YEAR</string>
+    <string name="course">COURSE</string>
+    <string name="enter">Enter</string>
+    <string name="id">ID #</string>
+    <string name="done">Done</string>
+
+
+    <string name="Confirm">Confirm</string>
+    <string name="PreferredName">Preferred Name</string>
+    <string name="CreateAProfile">Create a Profile</string>
+    <string name="photoURL">photo URL</string>
+    <string name="Submit">Submit</string>
+
+
+    <string name="x">x</string>
+    <string name="edit">Edit</string>
+
+
+    <string name="classmates">Classmates</string>
+    <string name="common"># Common</string>
+    <string name="start">Start</string>
+
+
+    <string name="textView">TextView</string>
+    <string name="emptyString"></string>
+
+
+    <string name="bluetooth">Wanna paint your tooth Blue?</string>
+
+
+    <string name="NearbyMocked">Nearby Message Mocked</string>
+    <string name="pasteProfile">Paste Profile</string>
+
+
 </resources>

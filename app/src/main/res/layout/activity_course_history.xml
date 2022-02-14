@@ -17,45 +17,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- this Button is for OnAddCourseClicked -->
+
     <Spinner
         android:id="@+id/quarter"
         android:layout_width="183dp"
         android:layout_height="77dp"
+        android:layout_marginStart="188dp"
         android:layout_marginBottom="12dp"
-        android:contentDescription="QUARTER"
+        android:contentDescription="@string/quarter"
         android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toTopOf="@+id/year"
-        app:layout_constraintEnd_toStartOf="@+id/course"
-        app:layout_constraintHorizontal_bias="0.575"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/courseID"
+        app:layout_constraintStart_toStartOf="@+id/my_courses" />
 
     <EditText
         android:id="@+id/year"
         android:layout_width="183dp"
         android:layout_height="77dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="208dp"
         android:ems="10"
-        android:hint="YEAR"
+        android:hint="@string/year"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/enterClass"
-        app:layout_constraintEnd_toStartOf="@+id/courseID"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/course"
         android:layout_width="183dp"
         android:layout_height="77dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
-        android:hint="COURSE"
+        android:hint="@string/course"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/courseID"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/year" />
 
-    <!-- this Button is for OnAddCourseClicked -->
     <Button
         android:id="@+id/enterClass"
         android:layout_width="wrap_content"
@@ -63,7 +61,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="4dp"
         android:onClick="onAddCourseClicked"
-        android:text="Enter"
+        android:text="@string/enter"
         app:layout_constraintBottom_toTopOf="@+id/DoneClass"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -74,10 +72,12 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="4dp"
         android:ems="10"
-        android:hint="ID #"
+        android:hint="@string/id"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/enterClass"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.979"
+        app:layout_constraintStart_toStartOf="@+id/my_courses" />
 
     <Button
         android:id="@+id/DoneClass"
@@ -86,7 +86,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="16dp"
         android:onClick="onDoneClicked"
-        android:text="Done"
+        android:text="@string/done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
