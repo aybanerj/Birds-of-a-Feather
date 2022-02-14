@@ -22,8 +22,9 @@ import com.benlau.bofteam1.db.Person;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
-public class ProfileReview extends AppCompatActivity {
+public class ProfileReviewActivity extends AppCompatActivity {
 
     ImageView URL_pic;
     Button load;
@@ -70,6 +71,7 @@ public class ProfileReview extends AppCompatActivity {
     public void onConfirmClicked(View v) {
         //creating a new person when profile is made and adding them to db
         //hardcoding common courses to 0
+        //empty list of courses for courses in common with itself, wont' make a difference
         Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0");
         db.personsDao().insert(newPerson);
         //then retrieve this person with db.personsDao().get(0)
@@ -77,31 +79,4 @@ public class ProfileReview extends AppCompatActivity {
         Intent intent = new Intent(this, CourseHistoryActivity.class);
         startActivity(intent);
     }
-
-//    private class LoadImage extends AsyncTask<String, Void, Bitmap> {
-//
-//        ImageView imageView;
-//        public  LoadImage(ImageView URL_pic) {
-//            this.imageView = URL_pic;
-//        }
-//
-//        @Override
-//        protected Bitmap doInBackground(String... strings) {
-//            String urlLink = strings[0];
-//            Bitmap bitmap = null;
-//            try {
-//                InputStream inputStream = new URL(urlLink).openStream();
-//                bitmap = BitmapFactory.decodeStream(inputStream);
-//            }   catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            return bitmap;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Bitmap bitmap) {
-//            URL_pic.setImageBitmap(bitmap);
-//        }
-//    }
 }

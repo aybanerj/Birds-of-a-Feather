@@ -22,7 +22,7 @@
         android:layout_width="183dp"
         android:layout_height="77dp"
         android:layout_marginBottom="12dp"
-        android:contentDescription="QUARTER"
+        android:contentDescription="@string/quarter"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/year"
         app:layout_constraintEnd_toStartOf="@+id/course"
@@ -36,7 +36,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginBottom="4dp"
         android:ems="10"
-        android:hint="YEAR"
+        android:hint="@string/year"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/enterClass"
         app:layout_constraintEnd_toStartOf="@+id/courseID"
@@ -50,7 +50,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:ems="10"
-        android:hint="COURSE"
+        android:hint="@string/course"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/courseID"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -63,7 +63,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="4dp"
         android:onClick="onAddCourseClicked"
-        android:text="Enter"
+        android:text="@string/enter"
         app:layout_constraintBottom_toTopOf="@+id/DoneClass"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -74,7 +74,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="4dp"
         android:ems="10"
-        android:hint="ID #"
+        android:hint="@string/id"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/enterClass"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -86,7 +86,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="16dp"
         android:onClick="onDoneClicked"
-        android:text="Done"
+        android:text="@string/done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

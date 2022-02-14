@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -18,6 +19,11 @@ import java.util.List;
         @Query("SELECT * FROM persons WHERE person_id =:personId")
         Person get(int personId);
 
+        @Query("SELECT * FROM persons WHERE firstName =:name")
+        Person getPersonByname(String name);
+
+        @Update
+        public void UpdatePerson(Person person);
 
         @Insert
         void insert(Person person);

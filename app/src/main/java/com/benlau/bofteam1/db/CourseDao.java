@@ -9,14 +9,15 @@ import androidx.room.Transaction;
 import java.util.List;
 
 @Dao
-public interface CourseDAO
+public interface CourseDao
 {
     @Transaction
     @Query("SELECT * FROM course_history where person_id=:personId")
     List<Course> getCoursesForPerson(int personId);
 
+    /*
     @Query("SELECT * FROM course_history WHERE person_id=:personId")
-    Course get(int personId);
+    Course get(int personId);*/
 
     @Insert
     void insert(Course course);

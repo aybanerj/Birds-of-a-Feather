@@ -3,17 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/birds-of-a-feather-cse-110-team-1/app/src/main/res/layout/activity_faked_message_listener.xml" value="0.2046875" />
+        <entry key="..\:/AndroidStudioProjects/birds-of-a-feather-cse-110-team-1/app/src/main/res/layout/student_detail_row.xml" value="0.2046875" />
+        <entry key="..\:/AndroidStudioProjects/birds-of-a-feather-cse-110-team-1/app/src/main/res/layout/student_row.xml" value="0.2046875" />
         <entry key="..\:/Users/wujus/Desktop/school/cse110/birds-of-a-feather-cse-110-team-1/app/src/main/res/layout/activity_class_list.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/wujus/Desktop/school/cse110/birds-of-a-feather-cse-110-team-1/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/wujus/Desktop/school/cse110/birds-of-a-feather-cse-110-team-1/app/src/main/res/layout/activity_user_class.xml" value="0.32447916666666665" />
         <entry key="app/src/main/res/layout/activity_faked_message_listener.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_home_screen.xml" value="0.1534954407294833" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_person_file_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile_review.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_user_class.xml" value="0.25" />
         <entry key="app/src/main/res/layout/course_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/persons_row.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/row.xml" value="0.13949275362318841" />
+        <entry key="app/src/main/res/layout/string.xml" value="0.13949275362318841" />
+        <entry key="app/src/main/res/layout/student_detail_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/student_row.xml" value="0.25" />
       </map>
     </option>

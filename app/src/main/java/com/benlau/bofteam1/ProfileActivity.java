@@ -1,18 +1,14 @@
 package com.benlau.bofteam1;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -86,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
         //only start Profile Review Activity after verifying the validity of name
-        Intent intent = new Intent(this, ProfileReview.class);
+        Intent intent = new Intent(this, ProfileReviewActivity.class);
         startActivity(intent);
         this.saveProfile();
 
