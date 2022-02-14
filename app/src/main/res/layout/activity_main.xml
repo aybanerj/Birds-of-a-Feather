@@ -17,7 +17,7 @@
         android:id="@+id/profileTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wanna paint your tooth Blue?"
+        android:text="@string/bluetooth"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

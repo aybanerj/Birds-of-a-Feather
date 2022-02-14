@@ -29,23 +29,13 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ProfileWalkthrough {
+public class InputProfileInformationEspresso {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void profileWalkthrough() {
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.Allow_btn), withText("Allow"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        materialButton.perform(click());
-
+    public void inputProfileInformationEspresso() {
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.photoField),
                         childAtPosition(
@@ -64,10 +54,10 @@ public class ProfileWalkthrough {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("https://www.recipetineats.com/wp-content/uploads/2019/04/Beef-Pho_6.jpg"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("https://media-cdn.tripadvisor.com/media/photo-s/14/71/0d/f6/pho-dac-biet-photo-by.jpg"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.photoField), withText("https://www.recipetineats.com/wp-content/uploads/2019/04/Beef-Pho_6.jpg"),
+                allOf(withId(R.id.photoField), withText("https://media-cdn.tripadvisor.com/media/photo-s/14/71/0d/f6/pho-dac-biet-photo-by.jpg"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -84,10 +74,10 @@ public class ProfileWalkthrough {
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatEditText4.perform(replaceText("PhoLover"), closeSoftKeyboard());
+        appCompatEditText4.perform(replaceText("Mark"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText5 = onView(
-                allOf(withId(R.id.nameField), withText("PhoLover"),
+                allOf(withId(R.id.nameField), withText("Mark"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -96,7 +86,7 @@ public class ProfileWalkthrough {
                         isDisplayed()));
         appCompatEditText5.perform(pressImeActionButton());
 
-        ViewInteraction materialButton2 = onView(
+        ViewInteraction materialButton = onView(
                 allOf(withId(R.id.submit_btn), withText("Submit"),
                         childAtPosition(
                                 childAtPosition(
@@ -104,7 +94,7 @@ public class ProfileWalkthrough {
                                         0),
                                 3),
                         isDisplayed()));
-        materialButton2.perform(click());
+        materialButton.perform(click());
     }
 
     private static Matcher<View> childAtPosition(

@@ -1,58 +1,43 @@
 package com.benlau.bofteam1;
 
 
-import androidx.test.espresso.DataInteraction;
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
+import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import static androidx.test.InstrumentationRegistry.getInstrumentation;
-import static androidx.test.espresso.Espresso.onData;
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
-import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-
-import com.benlau.bofteam1.R;
+import androidx.test.espresso.ViewInteraction;
+import androidx.test.filters.LargeTest;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.is;
-
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class CourseAddThenDelete5 {
+public class Add1CourseThenDeleteEspresso {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void courseAddThenDelete5() {
-        ViewInteraction materialButton = onView(
-                allOf(withId(R.id.Allow_btn), withText("Allow"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
-                        isDisplayed()));
-        materialButton.perform(click());
-
+    public void add1CourseThenDeleteEspresso() {
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.photoField),
                         childAtPosition(
@@ -61,9 +46,19 @@ public class CourseAddThenDelete5 {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("m"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("https://media-cdn.tripadvisor.com/media/photo-s/14/71/0d/f6/pho-dac-biet-photo-by.jpg"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.photoField), withText("https://media-cdn.tripadvisor.com/media/photo-s/14/71/0d/f6/pho-dac-biet-photo-by.jpg"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText2.perform(pressImeActionButton());
+
+        ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.nameField),
                         childAtPosition(
                                 childAtPosition(
@@ -71,9 +66,19 @@ public class CourseAddThenDelete5 {
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("m"), closeSoftKeyboard());
+        appCompatEditText3.perform(replaceText("Mark"), closeSoftKeyboard());
 
-        ViewInteraction materialButton2 = onView(
+        ViewInteraction appCompatEditText4 = onView(
+                allOf(withId(R.id.nameField), withText("Mark"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        appCompatEditText4.perform(pressImeActionButton());
+
+        ViewInteraction materialButton = onView(
                 allOf(withId(R.id.submit_btn), withText("Submit"),
                         childAtPosition(
                                 childAtPosition(
@@ -81,9 +86,9 @@ public class CourseAddThenDelete5 {
                                         0),
                                 3),
                         isDisplayed()));
-        materialButton2.perform(click());
+        materialButton.perform(click());
 
-        ViewInteraction materialButton3 = onView(
+        ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.confirmButton), withText("Confirm"),
                         childAtPosition(
                                 childAtPosition(
@@ -91,9 +96,9 @@ public class CourseAddThenDelete5 {
                                         0),
                                 1),
                         isDisplayed()));
-        materialButton3.perform(click());
+        materialButton2.perform(click());
 
-        ViewInteraction appCompatEditText3 = onView(
+        ViewInteraction appCompatEditText5 = onView(
                 allOf(withId(R.id.course),
                         childAtPosition(
                                 childAtPosition(
@@ -101,9 +106,9 @@ public class CourseAddThenDelete5 {
                                         0),
                                 3),
                         isDisplayed()));
-        appCompatEditText3.perform(replaceText("CSE"), closeSoftKeyboard());
+        appCompatEditText5.perform(replaceText("CSE"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText4 = onView(
+        ViewInteraction appCompatEditText6 = onView(
                 allOf(withId(R.id.year),
                         childAtPosition(
                                 childAtPosition(
@@ -111,9 +116,9 @@ public class CourseAddThenDelete5 {
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatEditText4.perform(replaceText("2019"), closeSoftKeyboard());
+        appCompatEditText6.perform(replaceText("2022"), closeSoftKeyboard());
 
-        ViewInteraction appCompatEditText5 = onView(
+        ViewInteraction appCompatEditText7 = onView(
                 allOf(withId(R.id.courseID),
                         childAtPosition(
                                 childAtPosition(
@@ -121,9 +126,9 @@ public class CourseAddThenDelete5 {
                                         0),
                                 5),
                         isDisplayed()));
-        appCompatEditText5.perform(replaceText("8A"), closeSoftKeyboard());
+        appCompatEditText7.perform(replaceText("110"), closeSoftKeyboard());
 
-        ViewInteraction materialButton4 = onView(
+        ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.enterClass), withText("Enter"),
                         childAtPosition(
                                 childAtPosition(
@@ -131,15 +136,31 @@ public class CourseAddThenDelete5 {
                                         0),
                                 4),
                         isDisplayed()));
-        materialButton4.perform(click());
+        materialButton3.perform(click());
 
-        ViewInteraction materialButton5 = onView(
+        ViewInteraction materialButton4 = onView(
                 allOf(withId(R.id.remove_course_button), withText("x"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.frameLayout),
                                         0),
                                 1),
+                        isDisplayed()));
+        materialButton4.perform(click());
+
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.my_courses),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        recyclerView.check(matches(isDisplayed()));
+
+        ViewInteraction materialButton5 = onView(
+                allOf(withId(R.id.DoneClass), withText("Done"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                6),
                         isDisplayed()));
         materialButton5.perform(click());
     }
