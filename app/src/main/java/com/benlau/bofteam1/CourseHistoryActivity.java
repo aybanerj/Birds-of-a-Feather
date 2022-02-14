@@ -37,7 +37,7 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_class);
+        setContentView(R.layout.activity_course_history);
         setTitle("Course History");
         db = AppDatabase.getDatabase(getApplicationContext());
         List<Course> courses = db.coursesDao().getCoursesForPerson(0);//the first person
@@ -65,6 +65,7 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         //need to also generate newPersonId that changes.
         // int newPersonId = db.coursesDao().maxId() +1; only put in the person in the db once all courses are added
         //when add course, put that course in the current person's list, keep updating person. Only change perosn id at the end when adding the person to db
+
 
         int newCourseId = db.coursesDao().maxId() + 1;
         Spinner quarterSchool = (Spinner) findViewById(R.id.quarter);
@@ -134,9 +135,17 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
     }
 
     public void onDoneClicked(View view) {
-        Context context = view.getContext();
-        Intent intent = new Intent(this, HomeScreen.class);
-        context.startActivity(intent);
+
+        //Checks course history to ensure it is not empty
+        if (db.coursesDao().count() <= 0) {
+            Utilities.showAlert(this,"Please Input Courses");
+        }
+        else {
+            Context context = view.getContext();
+            Intent intent = new Intent(this, HomeScreen.class);
+            context.startActivity(intent);
+        }
+
     }
 
     public void goBack(View view) {
