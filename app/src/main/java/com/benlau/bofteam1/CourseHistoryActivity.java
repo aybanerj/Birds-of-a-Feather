@@ -34,6 +34,12 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
 //            new DummyCourse(2, "Spring", "2021",  "CSE",  "100")
 //    };
 
+    /**
+     * Method that launches the Course History Activity which allows the User to input his/her
+     * class history.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,23 +67,26 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
 
     }
 
+    /**
+     * Method that adds a user-inputted course when pressing an "Enter" button.
+     * Manages the values that are sent to the corresponding layout XML file to populate UI
+     *
+     * @param view
+     */
     public void onAddCourseClicked(View view) {
-        //need to also generate newPersonId that changes.
-        // int newPersonId = db.coursesDao().maxId() +1; only put in the person in the db once all courses are added
-        //when add course, put that course in the current person's list, keep updating person. Only change perosn id at the end when adding the person to db
-
-
         int newCourseId = db.coursesDao().maxId() + 1;
         Spinner quarterSchool = (Spinner) findViewById(R.id.quarter);
         TextView numberTV = findViewById(R.id.courseID);
         TextView yearTV = findViewById(R.id.year);
         TextView courseTV = findViewById(R.id.course);
-        String number = numberTV.getText().toString();
+        String number = numberTV.getText().toString().toUpperCase() ;
         String quarter = quarterSchool.getSelectedItem().toString();
         String year = yearTV.getText().toString();
-        String course = courseTV.getText().toString();
+        String course = courseTV.getText().toString().toUpperCase();
 
         Course newCourse = new Course(newCourseId, 1, year, quarter, course, number);
+
+        //checks to ensure that fields are not left empty before moving on
         if(year.equals(""))
         {
             Utilities.showAlert(this, "Missing Value: year\nex: 20XX");
@@ -97,6 +106,12 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         }
     }
 
+    /**
+     * Method that controls functionality of the Edit Button, which removes a course and  replaces
+     * the textfields with the course details, enabling the User to quickly edit and re-add the course
+     *
+     * @param dataPassed
+     */
     @Override
     public void onEditClick(String dataPassed) {
         if(dataPassed != null) {
@@ -134,6 +149,12 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         }
     }
 
+    /**
+     * Method that launches the Home Screen activity via pressing a Done button, signaling that
+     * the User is done entering his/her course history.
+     *
+     * @param view
+     */
     public void onDoneClicked(View view) {
 
         //Checks course history to ensure it is not empty
