@@ -23,7 +23,11 @@ public class ProfileActivity extends AppCompatActivity {
     boolean initialSetup = true;
     private MessageListener messageListener;
 
-
+    /**
+     * Method that creates the ProfileActivity activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //print statement to verify that this activity is being created
@@ -38,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         //Nearby.getMessagesClient(this).subscribe(messageListener);
 
 
-        //load data here
+        //load data from Google here
         if (initialSetup == true) {
             //autofills Google Login information
         }
@@ -59,9 +63,10 @@ public class ProfileActivity extends AppCompatActivity {
      */
 
 
-    /*
+    /**
      * Function that launches the (Profile Review) screen using an intent
      * and SAVES the current profile
+     *
      * @param View - a view representing my political and social viewpoints (gonna read the lab again)
      */
     public void onSubmitClicked(View view) {
@@ -88,6 +93,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method that destroys the ProfileActivity
+     */
     @Override
     protected void onDestroy() {
 
@@ -97,6 +105,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method that loads the User's Profile (name, photoURL) via SharedPreferences
+     */
     public void loadProfile() {
         SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
         //load from the hashmap
@@ -108,6 +119,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method that writes the User's Profile (name, photoURL) to disk via SharedPreferences
+     */
     public void saveProfile() {
         SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

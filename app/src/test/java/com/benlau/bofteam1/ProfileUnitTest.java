@@ -15,6 +15,10 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 
 public class ProfileUnitTest {
+    /**
+     * Test that tests 6 different names and verifies all states of logic that check for all
+     * invalid name types
+     */
     @Test
     public void validName() {
         String name1 = "Mark";

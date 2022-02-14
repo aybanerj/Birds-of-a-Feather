@@ -31,6 +31,12 @@ public class ProfileReviewActivity extends AppCompatActivity {
     TextView textView;
     AppDatabase db;
 
+    /**
+     * Method that creates the ProfileReview Activity.  Meant to provide a preview page for the
+     * User's Profile so that they can determine whether or not to proceed with their profile
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +47,11 @@ public class ProfileReviewActivity extends AppCompatActivity {
 
         TextView PreferredName = findViewById(R.id.PreferredName);
         PreferredName.setText(getPreferredName());
+        //initializes database to finalize storage of User's Profile Informatoin
         db = AppDatabase.singleton(getApplicationContext());
     }
 
-    /*
+    /**
      * Function gets the ProfileURL that's saved via SharedPreferences
      *
      * @return - String representing ProfileURL
@@ -60,18 +67,25 @@ public class ProfileReviewActivity extends AppCompatActivity {
         return preferences.getString("photoURL", "");
     }
 
+    /**
+     * Method that reads the User's name via SharedPreferences
+     *
+     * @return - String representing User's name
+     */
     public String getPreferredName() {
         SharedPreferences preferences = getSharedPreferences("Profile", MODE_PRIVATE);
         return preferences.getString("name", "");
     }
 
-    /*
+    /**
      * Function launches the UserClass Activity which allows the user to input class history
+     *
+     * @param - View v
      */
     public void onConfirmClicked(View v) {
         //creating a new person when profile is made and adding them to db
-        //hardcoding common courses to 0
-        //empty list of courses for courses in common with itself, wont' make a difference
+        //hardcoding common courses to 0, will  get updated via a setter() later
+        //empty list of courses for courses in common with itself, won't make a difference
         Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0");
         db.personsDao().insert(newPerson);
         //then retrieve this person with db.personsDao().get(0)
