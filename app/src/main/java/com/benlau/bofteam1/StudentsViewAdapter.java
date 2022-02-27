@@ -17,14 +17,26 @@ import com.benlau.bofteam1.db.Course;
 import com.benlau.bofteam1.db.IPerson;
 import com.benlau.bofteam1.db.Person;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapter.ViewHolder> {
     private final List<Person> students;
 
+
     public StudentsViewAdapter(List<Person> students){
         super();
         this.students = students;
+        //should sort the students by common courses?
+        Collections.sort(students, new Comparator<Person>() {
+            @Override
+            public int compare(Person person1, Person person2) {
+                // -1 - less than, 1 - greater than, 0 - equal
+                return person1.getCommonCourses().compareTo(person1.getCommonCourses());
+            }
+        });
+
     }
     @NonNull
     @Override
@@ -38,6 +50,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         if(position!= 0) {
             holder.setStudent(students.get(position));
             holder.setStudentUrl(students.get(position));
+            //somehow sort it before inserting
             holder.setCourseCount(students.get(position));
         }
     }
@@ -48,6 +61,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
     }
 
     public void addStudent(Person student){
+
         this.students.add(student);
         this.notifyItemInserted(this.students.size() - 1);
     }

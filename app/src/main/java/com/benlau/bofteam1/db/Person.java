@@ -20,13 +20,18 @@ public class Person {
 
     @ColumnInfo(name = "numCommon")
     private String commonCourses;
+
+    //not sure if this needs to be its own column
+    @ColumnInfo(name = "favorites")
+    private boolean isFavorite;
     /*
     @ColumnInfo(name = "commonCoursesWithAppUser")
     private List<String> commonCoursesWithAppUser;*/
 
 
     public Person(String personName, String photoUrl, String commonCourses){
-
+        this.isFavorite = false; //does this need to be passed in, or is default always false, and is it if user favorites this person or
+        //otherway around
         this.personName = personName;
         this.photoUrl = photoUrl;
         this.commonCourses = commonCourses;
@@ -62,6 +67,7 @@ public class Person {
 
     public void setCommonCourses(String numCommon){this.commonCourses = numCommon;}
 
-
+    public void setIsFavorite(boolean value){this.isFavorite = value;}//can switch on and off
+    public boolean getIsFavorite(){return isFavorite;}
 
 }

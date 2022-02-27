@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
-
+//NEED TO CHANGE THIS TEST TO PASS IN CLASS SIZE AS A COURSE PARAMETER
 @RunWith(AndroidJUnit4.class)
 public class DatabaseUsageUnitTest {
     private PersonDao personDao;

@@ -38,6 +38,7 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         holder.setPerson(persons.get(position));
     }
 

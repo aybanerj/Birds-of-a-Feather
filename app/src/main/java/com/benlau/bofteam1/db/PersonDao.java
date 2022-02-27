@@ -12,6 +12,7 @@ import java.util.List;
     @Dao
     public interface PersonDao
     {
+
         @Transaction
         @Query("SELECT * FROM persons")
         List<Person> getAllPeople();

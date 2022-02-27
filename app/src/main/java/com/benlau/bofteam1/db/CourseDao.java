@@ -11,10 +11,13 @@ import java.util.List;
 @Dao
 public interface CourseDao
 {
+
     @Transaction
     @Query("SELECT * FROM course_history where person_id=:personId")
     List<Course> getCoursesForPerson(int personId);
 
+    @Query("SELECT * FROM course_history")
+    List<Course> getAllCourses();
     /*
     @Query("SELECT * FROM course_history WHERE person_id=:personId")
     Course get(int personId);*/

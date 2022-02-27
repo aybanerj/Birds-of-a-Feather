@@ -6,6 +6,9 @@ public interface ICourse {
     String getQuarter();
     String getCourseName();
     String getCourseNumber();
+    String getClassSize();
+    String getCourseYear();
+    int getPersonId();
 
 
 

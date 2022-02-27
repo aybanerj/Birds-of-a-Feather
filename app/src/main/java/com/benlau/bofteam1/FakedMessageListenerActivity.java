@@ -82,7 +82,7 @@ public class FakedMessageListenerActivity extends AppCompatActivity {
             //assuming list size at least 2
             for (int i = 2; i < list.size(); i++) {
                 stringArray = list.get(i).split(",");
-                newCourse = new Course(0, temp.getPersonId(), stringArray[0], stringArray[1], stringArray[2], stringArray[3]);
+                newCourse = new Course(0, temp.getPersonId(), stringArray[0], stringArray[1], stringArray[2], stringArray[3], stringArray[4]);
 
                 db.coursesDao().insert(newCourse);
             }
