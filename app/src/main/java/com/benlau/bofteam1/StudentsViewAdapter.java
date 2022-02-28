@@ -23,19 +23,22 @@ import java.util.List;
 
 public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapter.ViewHolder> {
     private final List<Person> students;
+    boolean firstTime = true;
 
 
     public StudentsViewAdapter(List<Person> students){
         super();
         this.students = students;
-        //should sort the students by common courses?
         Collections.sort(students, new Comparator<Person>() {
             @Override
-            public int compare(Person person1, Person person2) {
-                // -1 - less than, 1 - greater than, 0 - equal
-                return person1.getCommonCourses().compareTo(person1.getCommonCourses());
+            public int compare(Person lhs, Person rhs) {
+                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                return Integer.valueOf(rhs.getCommonCourses()) < Integer.valueOf(lhs.getCommonCourses()) ? -1 : (Integer.valueOf(rhs.getCommonCourses()) > Integer.valueOf(lhs.getCommonCourses())) ? 1 : 0;
             }
         });
+
+
+
 
     }
     @NonNull

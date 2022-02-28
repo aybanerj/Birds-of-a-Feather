@@ -31,6 +31,7 @@ public class HomeScreen extends AppCompatActivity {
     protected RecyclerView.LayoutManager studentsLayoutManager;
     protected StudentsViewAdapter studentsViewAdapter;
     boolean onCreateCall = true;
+    List<Person> persons;
 
     private AppDatabase db;
 
@@ -54,15 +55,21 @@ public class HomeScreen extends AppCompatActivity {
         sortingDropdown.setAdapter(adapter);
 
         db = AppDatabase.getDatabase(getApplicationContext());
-        List<Person> persons = db.personsDao().getAllPeople();
+         persons = db.personsDao().getAllPeople();
         //can somehow update persons whenever doing sorting/filtering?
 
         studentsRecyclerView = findViewById(R.id.student_view);
         studentsLayoutManager = new LinearLayoutManager(this);
         studentsRecyclerView.setLayoutManager(studentsLayoutManager);
 
+
         studentsViewAdapter = new StudentsViewAdapter(persons);
         studentsRecyclerView.setAdapter(studentsViewAdapter);
+
+       //persons = sortRecyclerViewInGeneralByCommonCourses(persons);//initially sort the bof list by just common courses
+        //studentsViewAdapter.notifyDataSetChanged();
+
+
 
 
         //since spinner click listener will be triggered when onCreate starts and when user selects it,
@@ -101,6 +108,8 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 //default so no sorting
+
+
                 return;
             }
         });
@@ -147,6 +156,7 @@ public class HomeScreen extends AppCompatActivity {
 
     }
 
+
     public void sortBySmallClasses(List<Person> persons){
         List<Course> allCourses = db.coursesDao().getAllCourses();
         Collections.sort(allCourses, new Comparator<Course>() {
@@ -176,6 +186,7 @@ public class HomeScreen extends AppCompatActivity {
         }
         persons.clear();
         persons.addAll(newPersonsList);
+
         }
 
     public void sortByThisQuarterOnly(List<Person> persons) {
@@ -224,6 +235,7 @@ public class HomeScreen extends AppCompatActivity {
             //somehow reset the recyclerview so its displaying favStudents instead
             persons.clear();
             persons.addAll(favStudents);
+
             studentsViewAdapter.notifyDataSetChanged();//should change recyclerview?
         }
     }
