@@ -1,3 +1,4 @@
+/*
 package com.benlau.bofteam1;
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
-import com.benlau.bofteam1.db.Person;
+import com.benlau.bofteam1.db.Student;
 
 import java.util.List;
 
-import com.benlau.bofteam1.db.Person;
+import com.benlau.bofteam1.db.Student;
 
 //need to populate persons_row.xml
 public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.ViewHolder> {
@@ -75,4 +76,4 @@ public class PersonsViewAdapter extends RecyclerView.Adapter<PersonsViewAdapter.
         }
     }
 
-}
+}*/

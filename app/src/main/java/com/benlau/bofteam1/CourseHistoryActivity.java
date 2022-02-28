@@ -26,6 +26,7 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
     protected RecyclerView.LayoutManager coursesLayoutManager;
     protected CoursesViewAdapter coursesViewAdapter;
     private AppDatabase db;
+    private String userUUID;
 
 
 //    protected ICourse[] data = {
@@ -46,7 +47,11 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         setContentView(R.layout.activity_course_history);
         setTitle("Course History");
         db = AppDatabase.getDatabase(getApplicationContext());
-        List<Course> courses = db.coursesDao().getCoursesForPerson(0);//the first person
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            userUUID = extras.getString("UUID");
+        }
+        List<Course> courses = db.coursesDao().getCoursesForStudent(userUUID);//the first person
 
         //db = AppDatabase.singleton(getApplicationContext());
         //db = AppDatabase.singleton(this);
@@ -74,7 +79,8 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
      * @param view
      */
     public void onAddCourseClicked(View view) {
-        int newCourseId = db.coursesDao().maxId() + 1;
+        //int newCourseId = db.coursesDao().maxId() + 1;
+
         Spinner quarterSchool = (Spinner) findViewById(R.id.quarter);
         TextView numberTV = findViewById(R.id.courseID);
         TextView yearTV = findViewById(R.id.year);
@@ -83,8 +89,9 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         String quarter = quarterSchool.getSelectedItem().toString();
         String year = yearTV.getText().toString();
         String course = courseTV.getText().toString().toUpperCase();
-
-        Course newCourse = new Course(newCourseId, 1, year, quarter, course, number);
+        //get the UUID of the User
+        //UPDATE THIS WHEN THE COURSE SIZE IS ADDED
+        Course newCourse = new Course(userUUID, year, quarter, course, number, "Large");
 
         //checks to ensure that fields are not left empty before moving on
         if(year.equals(""))
@@ -164,6 +171,7 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         else {
             Context context = view.getContext();
             Intent intent = new Intent(this, HomeScreen.class);
+            intent.putExtra("UUID", userUUID);
             context.startActivity(intent);
         }
 

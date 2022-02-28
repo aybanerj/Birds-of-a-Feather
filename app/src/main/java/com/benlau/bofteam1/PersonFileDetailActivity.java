@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
-import com.benlau.bofteam1.db.Person;
+import com.benlau.bofteam1.db.Student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,8 @@ public class PersonFileDetailActivity extends AppCompatActivity {
     private String url;
     private ListView l;
     private String name;
-    private int person_id;
+    //private int person_id;
+    private String UUID;
     private ArrayList<String> course = new ArrayList<>();
     private AppDatabase db;
 
@@ -38,10 +39,11 @@ public class PersonFileDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
         name = intent.getStringExtra("person_name");
-        person_id = intent.getIntExtra("person_id",0);
+        //person_id = intent.getIntExtra("person_id",0);
+        UUID = intent.getStringExtra("UUID");
 
         //course = (ArrayList<String>) getIntent().getSerializableExtra("common_courses");
-        Person person = db.personsDao().getPersonByname(name);
+        Student person = db.studentsDao().getByUUID(UUID);
         course = calculateCommonCourses(person);
 
         //course.add(person.getCommonCourses());
@@ -60,12 +62,12 @@ public class PersonFileDetailActivity extends AppCompatActivity {
         l.setAdapter(arr);
     }
 
-    public ArrayList<String> calculateCommonCourses(Person newPerson) {
-        List<Person> personList = db.personsDao().getAllPeople();
-        Person temp = personList.get(personList.size()-1);
+    public ArrayList<String> calculateCommonCourses(Student newStudent) {
+        List<Student> studentList = db.studentsDao().getAllStudents();
+        //Student temp = studentList.get(studentList.size()-1);
         ArrayList<String> commonCourseNames = new ArrayList<String>();
-        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForPerson(temp.getPersonId());
-        List<Course> coursesForAppUser = db.coursesDao().getCoursesForPerson(1);
+        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForStudent(newStudent.getUUID());
+        List<Course> coursesForAppUser = db.coursesDao().getCoursesForStudent(UUID);
 
 
         for (int i=0; i < coursesForNewPerson.size(); i++){

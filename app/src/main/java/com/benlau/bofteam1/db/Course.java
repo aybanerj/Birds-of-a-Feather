@@ -9,55 +9,57 @@ import com.benlau.bofteam1.ICourse;
 //is it a table of people, or table of courses
 
 @Entity(tableName = "course_history")
-public class Course implements ICourse {
+public class Course {
     @PrimaryKey(autoGenerate = true)
-    public int id; //course id is not very useful
-    public String year;
-    public String quarter;
-    public String courseName;
-    public String courseNumber;
+    @ColumnInfo(name = "courseId")
+    private int courseId; //course id is not very useful
+
+    private String year;
+    private String quarter;
+    private String courseName;
+    private String courseNumber;
+    private String courseSize;
 
     @NonNull
     @ColumnInfo(name = "fullCourse")
-    public String fullCourse;
-    //foreign key - references personId field in Person
-    //use it to retrieve all Courses for a given Person
-    @ColumnInfo(name = "person_id")
-    public int personId;
+    private String fullCourse;
+    //foreign key - references studentUUID field in Student
+    //use it to retrieve all Courses for a given Student
+    @ColumnInfo(name = "studentUUID")
+    private String studentUUID;
 
 
     // add another column for id?
     // not adding rn because same course names should not be distinguishable
 
     // Constructor to add new courses
-    public Course(){}
-    public Course(int id, int personId, String year, String quarter, String courseName, String courseNumber){
-        this.id = id;
-        this.personId = personId; //is this different from id?
+    public Course(String studentUUID, String year, String quarter, String courseName, String courseNumber, String courseSize){
+        this.studentUUID = studentUUID;
         this.year = year;
         this.quarter = quarter;
         this.courseName = courseName;
         this.courseNumber = courseNumber;
+        this.courseSize = courseSize;
         this.fullCourse = year + " " + quarter + " " + courseName + " " + courseNumber;
     }
 
-    @Override
     public String getFullCourse(){
         return this.fullCourse;
     }
+    public void setFullCourse(String fullCourse) { this.fullCourse = fullCourse; }
 
+    public String getStudentUUID()  {return this.studentUUID;}
 
-    @Override
-    public int getId(){
-        return this.id;
+    public int getCourseId(){
+        return this.courseId;
     }
+    public void setCourseId(int courseId) { this.courseId = courseId; }
 
-    @Override
+
+    public String getYear() {return this.year;}
     public String getQuarter() {return this.quarter;}
-
-    @Override
     public String getCourseName(){return this.courseName;}
-
-    @Override
     public String getCourseNumber(){return this.courseNumber;}
+    public String getCourseSize(){return this.courseSize;}
+    public void setCourseSize(String courseSize) {this.courseSize = courseSize;}
 }

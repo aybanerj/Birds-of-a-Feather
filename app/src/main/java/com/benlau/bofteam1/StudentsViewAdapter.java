@@ -15,14 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.benlau.bofteam1.db.AppDatabase;
 import com.benlau.bofteam1.db.Course;
 import com.benlau.bofteam1.db.IPerson;
-import com.benlau.bofteam1.db.Person;
+import com.benlau.bofteam1.db.Student;
 
 import java.util.List;
 
 public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapter.ViewHolder> {
-    private final List<Person> students;
+    private final List<Student> students;
 
-    public StudentsViewAdapter(List<Person> students){
+    public StudentsViewAdapter(List<Student> students){
         super();
         this.students = students;
     }
@@ -47,7 +47,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         return this.students.size();
     }
 
-    public void addStudent(Person student){
+    public void addStudent(Student student){
         this.students.add(student);
         this.notifyItemInserted(this.students.size() - 1);
     }
@@ -56,7 +56,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         private final TextView studentNameView;
         private final TextView courseCountView;
         private final ImageView studentUrl;
-        private Person student;
+        private Student student;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -67,16 +67,16 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
             itemView.setOnClickListener(this);
         }
 
-        public void setStudent(Person student) {
+        public void setStudent(Student student) {
             this.student = student;
-            this.studentNameView.setText(student.getPersonName());
+            this.studentNameView.setText(student.getStudentName());
         }
 
-        public void setCourseCount(Person student) {
-            this.courseCountView.setText(student.getCommonCourses());
+        public void setCourseCount(Student student) {
+            this.courseCountView.setText(student.getNumCommonCourses());
         }
 
-        public void setStudentUrl(Person student) {
+        public void setStudentUrl(Student student) {
             LoadImage loadImage = new LoadImage(this.studentUrl);
             loadImage.execute(student.getPhotoUrl());
         }
@@ -85,8 +85,9 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         public void onClick(View view) {
             Context context = view.getContext();
             Intent intent = new Intent(context, PersonFileDetailActivity.class);
-            intent.putExtra("person_name", this.student.getPersonName());
+            intent.putExtra("person_name", this.student.getStudentName());
             intent.putExtra("url", this.student.getPhotoUrl());
+            intent.putExtra("UUID", this.student.getUUID());
             context.startActivity(intent);
         }
     }

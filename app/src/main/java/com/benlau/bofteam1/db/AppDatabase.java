@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Person.class, Course.class}, version = 1)
+@Database(entities = {Student.class, Course.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     // try to work out how not to use singletons if possible so we can test our own databases
@@ -25,5 +25,5 @@ public abstract class AppDatabase extends RoomDatabase {
         return singletonInstance;
     }
     public abstract CourseDao coursesDao();
-    public abstract PersonDao personsDao();
+    public abstract StudentDao studentsDao();
 }
