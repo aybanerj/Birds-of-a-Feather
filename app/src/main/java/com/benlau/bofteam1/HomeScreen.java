@@ -24,7 +24,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HomeScreen extends AppCompatActivity {
     protected RecyclerView studentsRecyclerView;
@@ -55,8 +57,7 @@ public class HomeScreen extends AppCompatActivity {
         sortingDropdown.setAdapter(adapter);
 
         db = AppDatabase.getDatabase(getApplicationContext());
-         persons = db.personsDao().getAllPeople();
-        //can somehow update persons whenever doing sorting/filtering?
+        persons = db.personsDao().getAllPeople();
 
         studentsRecyclerView = findViewById(R.id.student_view);
         studentsLayoutManager = new LinearLayoutManager(this);
@@ -66,19 +67,12 @@ public class HomeScreen extends AppCompatActivity {
         studentsViewAdapter = new StudentsViewAdapter(persons);
         studentsRecyclerView.setAdapter(studentsViewAdapter);
 
-       //persons = sortRecyclerViewInGeneralByCommonCourses(persons);//initially sort the bof list by just common courses
-        //studentsViewAdapter.notifyDataSetChanged();
-
-
-
-
         //since spinner click listener will be triggered when onCreate starts and when user selects it,
-        //onCreate call should have false flag so default list shown
+        //onCreateCall flag defines if its still initializing the homescreen, in which case no sorting
         sortingDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                 //if flag is false, then check if prioritize recent, prioritize small classes
-                 //or this quarter only
+
                 if (onCreateCall) {
                     onCreateCall = false;
                 }
@@ -86,126 +80,188 @@ public class HomeScreen extends AppCompatActivity {
                     String sortingOption = (String)adapterView.getItemAtPosition(i);//can you cast it to string?
                     switch(sortingOption){
                         case "prioritize recent":
-                               sortByRecent(persons);
-                               studentsViewAdapter.notifyDataSetChanged();
+                               persons = sortByRecent(persons);
+                               studentsViewAdapter.notifyDataSetChanged();//not sure if this helps
+                               studentsRecyclerView.setAdapter(new StudentsViewAdapter(persons));
                                 break;
                         case "prioritize small classes":
-                               sortBySmallClasses(persons);
+                               persons = sortBySmallClasses(persons);
                                studentsViewAdapter.notifyDataSetChanged();
+                            studentsRecyclerView.setAdapter(new StudentsViewAdapter(persons));
                                 break;
                         case "this quarter only":
                                 //for now dummy value for this quarter is 2022 WI
-                                sortByThisQuarterOnly(persons);
+                                persons = sortByThisQuarterOnly(persons);
                                 studentsViewAdapter.notifyDataSetChanged();
+                            studentsRecyclerView.setAdapter(new StudentsViewAdapter(persons));
                                 break;
                         default:
                             break;
-
                     }
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 //default so no sorting
-
-
                 return;
             }
         });
 
 
     }
-    public void sortByRecent(List<Person> persons){
-        //set doesn't allow duplicates
+    public List<Person> sortByRecent(List<Person> persons){
         List<Course> allCourses = db.coursesDao().getAllCourses();
-        Collections.sort(allCourses, new Comparator<Course>() {
+        //calculate the recency score, set it and add to newPersonList, which will sort it in descending order
+        List<Person> newPersonsList = new ArrayList<Person>();
+        for (Person person : persons) {
+            int recencyScore = calculateRecencyScoreFor(person);
+            person.setRecencyScore(recencyScore);
+            newPersonsList.add(person);
+            //no specification for handling ties, just do it arbitrarily
+        }
+        Collections.sort(newPersonsList, new Comparator<Person>() {
             @Override
-            public int compare(Course c1, Course c2) {
-                if (c1.getCourseYear().equals(c2.getCourseYear())) {
-                    //if years are the same go by quarters
-                    int c1QuarterNum = 0;
-                    int c2QuarterNum = 0;
-                    String[] quarters = new String[] {"FA", "WI", "SP", "SS1", "SS2", "SSS"};
-                    for (int i = 0; i < quarters.length; i++) {
-                        if (c1.getQuarter().equals(quarters[i])) {
-                            c1QuarterNum = i;
-                        }
-                        if (c2.getQuarter().equals(quarters[i])) {
-                            c2QuarterNum = i;
-                        }
-                    }
-                    return c1QuarterNum - c2QuarterNum;
-
-                } else {
-                    //if years not the same can just compare that
-                    return Integer.valueOf(c1.getCourseYear()) - Integer.valueOf(c2.getCourseYear());
-                }
+            public int compare(Person lhs, Person rhs) {
+                if(lhs.getPersonId() == 1){return 0;} //no matter what rhs < lhs is, return rhs, not sure if this works
+                if (rhs.getPersonId()==1){return 0;} //no matter what rhs < lhs is, return lhs, not sure if this works
+                return rhs.getRecencyScore() < lhs.getRecencyScore() ? -1 : rhs.getRecencyScore() > lhs.getRecencyScore() ? 1 : 0;
             }
         });
-
-        //allCourses sorted by most recent now. Loop through them, get each personID for each course, and sort person accordingly?
-        List<Person> newPersonsList = new ArrayList<Person>();
-        for (Course course : allCourses) {
-            int thisPersonId = course.getPersonId();
-            Person toInsert = db.personsDao().get(thisPersonId); //WILL NOT WORK IF CAN'T RETRIEVE A PERSON BY PERSON ID SO NEED TO FIX get!
-            newPersonsList.add(toInsert);
-        }
         persons.clear();
         persons.addAll(newPersonsList);
-
+        return persons;
     }
 
 
-    public void sortBySmallClasses(List<Person> persons){
-        List<Course> allCourses = db.coursesDao().getAllCourses();
-        Collections.sort(allCourses, new Comparator<Course>() {
-            @Override
-            public int compare(Course c1, Course c2) {
+    public List<Person> sortBySmallClasses(List<Person> persons){
 
-                int c1ClassSize = 0;
-                int c2ClassSize = 0;
-                String[] quarters = new String[]{"Tiny(<40)", "Small(40-75)", "Medium(75-150)", "Large(150-250)", "Huge(250-400)", "Gigantic(400+)"};
-                for (int i = 0; i < quarters.length; i++) {
-                    if (c1.getQuarter().equals(quarters[i])) {
-                        c1ClassSize = i;
-                    }
-                    if (c2.getQuarter().equals(quarters[i])) {
-                        c2ClassSize = i;
-                    }
-                }
-                return c1ClassSize - c2ClassSize;
-            }
-            });
-        //sorted all courses by class size, so now sort people according to those classes
+        List<Course> allCourses = db.coursesDao().getAllCourses();
+        //calculate the classsizeweight for each person and set it, add it to newPersonsList which sorts it in descending order
         List<Person> newPersonsList = new ArrayList<Person>();
-        for (Course course : allCourses) {
-            int thisPersonId = course.getPersonId();
-            Person toInsert = db.personsDao().get(thisPersonId); //WILL NOT WORK IF CAN'T RETRIEVE A PERSON BY PERSON ID SO NEED TO FIX get!
-            newPersonsList.add(toInsert);
+        for (Person person : persons) {
+            double classSizeWeight = calculateClassSizeWeightFor(person);
+            person.setClassSizeWeight(classSizeWeight);
+            newPersonsList.add(person);
+            //no specification for handling ties, just do it arbitrarily
         }
+
+        Collections.sort(newPersonsList, new Comparator<Person>() {
+            @Override
+            public int compare(Person lhs, Person rhs) {
+                if(lhs.getPersonId() == 1){return 0;} //not sure what this does but it works
+                if (rhs.getPersonId()==1){return 0;} //not sure what this does but it works
+                return rhs.getClassSizeWeight() < lhs.getClassSizeWeight() ? 1 : rhs.getClassSizeWeight() > lhs.getClassSizeWeight() ? -1 : 0;
+            }
+        });
         persons.clear();
         persons.addAll(newPersonsList);
-
+        return persons;
         }
 
-    public void sortByThisQuarterOnly(List<Person> persons) {
-        List<Course> allCourses = db.coursesDao().getAllCourses(); //Assuming getAllCourses() works
+    public List<Person> sortByThisQuarterOnly(List<Person> persons) {
+        //add people that match 2022 WI but sort otherwise by common courses
+        List<Person> allPeople = db.personsDao().getAllPeople();
         List<Person> newPersonsList = new ArrayList<Person>();
-        for (Course course : allCourses) {
-            if (course.getCourseYear().equals("2022") && course.getQuarter().equals("WI")) {
-                int thisPersonId = course.getPersonId();
-                Person toInsert = db.personsDao().get(thisPersonId); //WILL NOT WORK IF CAN'T RETRIEVE A PERSON BY PERSON ID SO NEED TO FIX get!
-                newPersonsList.add(toInsert);
+        // newPersonsList.add(db.personsDao().get(1)); //have to add some random person bc according to studentViewAdapter person in position 0 is not shown
+        for (Person person : allPeople){
+            List<Course> allCoursesForPerson = db.coursesDao().getCoursesForPerson(person.getPersonId());//ASSUMING GETPERSONID works
+            for (Course course : allCoursesForPerson){
+                if (course.getCourseYear().equals("2022") && course.getQuarter().equals("WI")){
+                    if (person.getPersonId()!=1) {
+                        newPersonsList.add(person);
+                    }
+                }
             }
         }
         persons.clear(); //hopefully maintains the sorted order by common courses
         persons.addAll(newPersonsList);
+        return persons;
 
     }
 
 
+    /*
+     * Method for calculating the class weights for a Person object
+     * Assumes that getPersonId() returns a functional, unique Id,
+     * can be replaced by Mark's new db method for getting person Id
+     *
+     */
+    public double calculateClassSizeWeightFor(Person person) {
+        List<Course> allCourses = db.coursesDao().getCoursesForPerson(person.getPersonId());
+        double sumValue = 0;
+        for (Course course : allCourses) {
+            switch (course.getClassSize()) {
+                case "Tiny(<40)":
+                    sumValue+=1.00;
+                    break;
+                case "Small(40-75)":
+                    sumValue+=0.33;
+                    break;
+                case "Medium(75-150)":
+                    sumValue+=0.18;
+                    break;
+                case "Large(150-250)":
+                    sumValue+=0.10;
+                    break;
+                case "Huge(250-400)":
+                    sumValue+=0.06;
+                    break;
+                case "Gigantic(400+)":
+                    sumValue+=0.03;
+                    break;
+                default:
+                    break;
 
+            }
+        }
+        return sumValue;
+    }
+    /*
+     * Method for calculating weights based on how recent a class was taken
+     * Anything in 2022 and 2021 FA is score of 5,
+     * 2021 SS1 SS2 SSS is 4
+     * 2021 SP is 3
+     * 2021 WI 2
+     * Anything before that is 1
+     * Uses original getPersonId from old db, can be replaced with Mark's db methods
+     *
+     */
+    public int calculateRecencyScoreFor(Person person) {
+        List<Course> allCourses = db.coursesDao().getCoursesForPerson(person.getPersonId());
+        int sumValue = 0;
+        for (Course course : allCourses) {
+            switch (course.getCourseYear()) {
+                case "2022":
+                    sumValue += 5;
+                    break;
+                case "2021":
+                    if (course.getQuarter().equals("FA")) {
+                        sumValue += 5;
+                        break;
+                    }
+                    if (course.getQuarter().equals("SS1") || course.getQuarter().equals("SS2") || course.getQuarter().equals("SSS")) {
+                        sumValue += 4;
+                        break;
+                    }
+                    if (course.getQuarter().equals("WI")) {
+                        sumValue += 3;
+                        break;
+                    }
+                case "2020":
+                    if (course.getQuarter().equals("FA")) {
+                        sumValue += 2;
+                        break;
+                    }
+                    //anything before 2020 FA is a score of 1
+                    sumValue += 1;
+                    break;
+                default:
+                    sumValue += 1;
+                    break;
+            }
+        }
+        return sumValue;
+    }
     /**
      * Method that launches the FakedMessageListener (Mocked Nearby) activity which
      * for now, allows external input of a specific, custom CSV style data which serves as
@@ -219,25 +275,43 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //for filtering students to show only those favorited
+    /*
+      For filtering students to only show those that are favorited
+     */
     public void onCheckBoxClicked(View view) {
         CompoundButton filterByFavCheckbox = (CompoundButton) findViewById(R.id.filter_by_fav_box);
        //only if checked to on position
         if (filterByFavCheckbox.isChecked()){
-            //delete all the student views, grab only the subset of students that are favorites, then update recyclerview
+            //grab only the subset of students that are favorites, then update recyclerview
             List<Person> persons = db.personsDao().getAllPeople();
             List<Person> favStudents = new ArrayList<Person>();
+            favStudents.add(db.personsDao().get(1));//have to insert one person beforehand bc of db bug, should be fixed by Mark's updates?
             for (Person person : persons){
+                if (person.getPersonName().equals("Vinnie")){
+                    person.setIsFavorite(true);
+                }
+                if(person.getPersonName().equals("Bill")){
+                    person.setIsFavorite(true);
+                }
                 if (person.getIsFavorite()){
+
                     favStudents.add(person);
                 }
             }
-            //somehow reset the recyclerview so its displaying favStudents instead
+
             persons.clear();
             persons.addAll(favStudents);
+            studentsViewAdapter.notifyDataSetChanged();
+            studentsRecyclerView.setAdapter(new StudentsViewAdapter(persons));
 
-            studentsViewAdapter.notifyDataSetChanged();//should change recyclerview?
         }
+        else {
+            List<Person> allPeople = db.personsDao().getAllPeople();
+            //everytime new adapter created the list should be sorted by common courses
+            studentsViewAdapter.notifyDataSetChanged();
+            studentsRecyclerView.setAdapter(new StudentsViewAdapter(allPeople));
+        }
+
     }
 
 

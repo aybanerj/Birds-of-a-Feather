@@ -46,7 +46,7 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         setContentView(R.layout.activity_course_history);
         setTitle("Course History");
         db = AppDatabase.getDatabase(getApplicationContext());
-        List<Course> courses = db.coursesDao().getCoursesForPerson(0);//the first person
+        List<Course> courses = db.coursesDao().getCoursesForPerson(1);//the first person
 
         //db = AppDatabase.singleton(getApplicationContext());
         //db = AppDatabase.singleton(this);

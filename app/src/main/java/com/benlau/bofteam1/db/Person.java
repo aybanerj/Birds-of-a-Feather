@@ -24,6 +24,13 @@ public class Person {
     //not sure if this needs to be its own column
     @ColumnInfo(name = "favorites")
     private boolean isFavorite;
+
+    @ColumnInfo(name = "classSizeWeight")
+    private double classSizeWeight;
+
+    @ColumnInfo(name = "recencyScore")
+    private int recencyScore;
+
     /*
     @ColumnInfo(name = "commonCoursesWithAppUser")
     private List<String> commonCoursesWithAppUser;*/
@@ -32,6 +39,8 @@ public class Person {
     public Person(String personName, String photoUrl, String commonCourses){
         this.isFavorite = false; //does this need to be passed in, or is default always false, and is it if user favorites this person or
         //otherway around
+        this.recencyScore = 0;
+        this.classSizeWeight = 0;
         this.personName = personName;
         this.photoUrl = photoUrl;
         this.commonCourses = commonCourses;
@@ -44,9 +53,19 @@ public class Person {
     public int getPersonId() {
         return personId;
     }
+
     public void setPersonId(int personId) {
         this.personId = personId;
     }
+    public int getRecencyScore(){return this.recencyScore;}
+
+    public void setRecencyScore(int recencyScore) {
+        this.recencyScore = recencyScore;
+    }
+
+    public double getClassSizeWeight(){return this.classSizeWeight;}
+
+    public void setClassSizeWeight(double num) {this.classSizeWeight=num;}
 
     public String getPersonName() {
         return personName;
