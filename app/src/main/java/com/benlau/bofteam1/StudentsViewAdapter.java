@@ -1,8 +1,11 @@
 package com.benlau.bofteam1;
 
+import static android.content.Intent.getIntent;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,7 @@ import java.util.List;
 
 public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapter.ViewHolder> {
     private final List<Student> students;
+    private String userUUID = "";
 
     public StudentsViewAdapter(List<Student> students){
         super();
@@ -52,7 +56,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         this.notifyItemInserted(this.students.size() - 1);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView studentNameView;
         private final TextView courseCountView;
         private final ImageView studentUrl;
@@ -87,7 +91,8 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
             Intent intent = new Intent(context, PersonFileDetailActivity.class);
             intent.putExtra("person_name", this.student.getStudentName());
             intent.putExtra("url", this.student.getPhotoUrl());
-            intent.putExtra("UUID", this.student.getUUID());
+            intent.putExtra("userUUID", StudentsViewAdapter.this.students.get(0).getUUID());
+            intent.putExtra("newStudentUUID", this.student.getUUID());
             context.startActivity(intent);
         }
     }

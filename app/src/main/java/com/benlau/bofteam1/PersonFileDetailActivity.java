@@ -25,7 +25,8 @@ public class PersonFileDetailActivity extends AppCompatActivity {
     private ListView l;
     private String name;
     //private int person_id;
-    private String UUID;
+    private String userUUID;
+    private String newStudentUUID;
     private ArrayList<String> course = new ArrayList<>();
     private AppDatabase db;
 
@@ -40,11 +41,12 @@ public class PersonFileDetailActivity extends AppCompatActivity {
         url = intent.getStringExtra("url");
         name = intent.getStringExtra("person_name");
         //person_id = intent.getIntExtra("person_id",0);
-        UUID = intent.getStringExtra("UUID");
+        userUUID = intent.getStringExtra("userUUID");
+        newStudentUUID = intent.getStringExtra("newStudentUUID");
 
         //course = (ArrayList<String>) getIntent().getSerializableExtra("common_courses");
-        Student person = db.studentsDao().getByUUID(UUID);
-        course = calculateCommonCourses(person);
+        //Student person = db.studentsDao().getByUUID(userUUID);
+        course = calculateCommonCourses(userUUID, newStudentUUID);
 
         //course.add(person.getCommonCourses());
 
@@ -62,17 +64,21 @@ public class PersonFileDetailActivity extends AppCompatActivity {
         l.setAdapter(arr);
     }
 
-    public ArrayList<String> calculateCommonCourses(Student newStudent) {
-        List<Student> studentList = db.studentsDao().getAllStudents();
+    public ArrayList<String> calculateCommonCourses(String userUUID, String newStudentUUID) {
+        //List<Student> studentList = db.studentsDao().getAllStudents();
         //Student temp = studentList.get(studentList.size()-1);
         ArrayList<String> commonCourseNames = new ArrayList<String>();
-        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForStudent(newStudent.getUUID());
-        List<Course> coursesForAppUser = db.coursesDao().getCoursesForStudent(UUID);
+//        String firstStudentUUID = studentList.get(0).getUUID();
+//        String secondStudentUUID = studentList.get(1).getUUID();
+//        String usersUUID = this.UUID;
+//        String newStudentUUID = newStudent.getUUID();
+        List<Course> coursesForNewPerson = db.coursesDao().getCoursesForStudent(userUUID);
+        List<Course> coursesForAppUser = db.coursesDao().getCoursesForStudent(newStudentUUID);
 
 
         for (int i=0; i < coursesForNewPerson.size(); i++){
             for(int j=0; j < coursesForAppUser.size(); j++){
-                if (coursesForNewPerson.get(i).getFullCourse().toUpperCase().equals(coursesForAppUser.get(j).getFullCourse().toUpperCase())){
+                if (coursesForNewPerson.get(i).getFullCourse().equalsIgnoreCase(coursesForAppUser.get(j).getFullCourse())){
                     commonCourseNames.add(coursesForAppUser.get(j).getFullCourse());
                 }
             }
