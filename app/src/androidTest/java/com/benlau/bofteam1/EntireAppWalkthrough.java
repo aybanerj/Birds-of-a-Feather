@@ -2,16 +2,12 @@ package com.benlau.bofteam1;
 
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
-import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.action.ViewActions.*;
+import static androidx.test.espresso.assertion.ViewAssertions.*;
+import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
+import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +27,13 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class CreateProfileAndAddCourseEspresso {
+public class EntireAppWalkthrough {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void createProfileAndAddCourse() {
+    public void entireAppWalkthrough() {
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.photoField),
                         childAtPosition(
@@ -56,10 +52,10 @@ public class CreateProfileAndAddCourseEspresso {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("https://media-cdn.tripadvisor.com/media/photo-s/14/71/0d/f6/pho-dac-biet-photo-by.jpg"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("https://www.recipetineats.com/wp-content/uploads/2019/04/Beef-Pho_6.jpg"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.photoField), withText("https://media-cdn.tripadvisor.com/media/photo-s/14/71/0d/f6/pho-dac-biet-photo-by.jpg"),
+                allOf(withId(R.id.photoField), withText("https://www.recipetineats.com/wp-content/uploads/2019/04/Beef-Pho_6.jpg"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -109,16 +105,6 @@ public class CreateProfileAndAddCourseEspresso {
         materialButton2.perform(click());
 
         ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.course),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
-                        isDisplayed()));
-        appCompatEditText6.perform(replaceText("CSE"), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText7 = onView(
                 allOf(withId(R.id.year),
                         childAtPosition(
                                 childAtPosition(
@@ -126,7 +112,17 @@ public class CreateProfileAndAddCourseEspresso {
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatEditText7.perform(replaceText("2022"), closeSoftKeyboard());
+        appCompatEditText6.perform(replaceText("2021"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText7 = onView(
+                allOf(withId(R.id.course),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                3),
+                        isDisplayed()));
+        appCompatEditText7.perform(replaceText("MUS"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText8 = onView(
                 allOf(withId(R.id.courseID),
@@ -136,7 +132,7 @@ public class CreateProfileAndAddCourseEspresso {
                                         0),
                                 5),
                         isDisplayed()));
-        appCompatEditText8.perform(replaceText("110"), closeSoftKeyboard());
+        appCompatEditText8.perform(replaceText("19"), closeSoftKeyboard());
 
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.enterClass), withText("Enter"),
@@ -148,12 +144,6 @@ public class CreateProfileAndAddCourseEspresso {
                         isDisplayed()));
         materialButton3.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.course_row_name), withText("2022 FA CSE 110"),
-                        withParent(withParent(withId(R.id.frameLayout))),
-                        isDisplayed()));
-        textView.check(matches(withText("2022 FA CSE 110")));
-
         ViewInteraction materialButton4 = onView(
                 allOf(withId(R.id.DoneClass), withText("Done"),
                         childAtPosition(
@@ -163,6 +153,53 @@ public class CreateProfileAndAddCourseEspresso {
                                 6),
                         isDisplayed()));
         materialButton4.perform(click());
+
+        ViewInteraction materialButton5 = onView(
+                allOf(withId(R.id.start_stop), withText("Start"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        materialButton5.perform(click());
+
+        ViewInteraction appCompatEditText9 = onView(
+                allOf(withId(R.id.NearbyMessageMockedTextbox),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText9.perform(replaceText("a4ca50b6-941b-11ec-b909-0242ac1200041,,,,\nInigo,,,,\nhttps://lh3.googleusercontent.com/pw/AM-JKLXQ2ix4dg-PzLrPOSMOOy6M3PSUrijov9jCLXs4IGSTwN73B4kr-F6Nti_4KsiUU8LzDSGPSWNKnFdKIPqCQ2dFTRbARsW76pevHPBzc51nceZDZrMPmDfAYyI4XNOnPrZarGlLLUZW9wal6j-z9uA6WQ=w854-h924-no?authuser=0,,,,\n2021,FA,MUS,19,Large\n2022,WI,CSE,110,Large"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText10 = onView(
+                allOf(withId(R.id.NearbyMessageMockedTextbox), withText("a4ca50b6-941b-11ec-b909-0242ac1200041,,,,\nInigo,,,,\nhttps://lh3.googleusercontent.com/pw/AM-JKLXQ2ix4dg-PzLrPOSMOOy6M3PSUrijov9jCLXs4IGSTwN73B4kr-F6Nti_4KsiUU8LzDSGPSWNKnFdKIPqCQ2dFTRbARsW76pevHPBzc51nceZDZrMPmDfAYyI4XNOnPrZarGlLLUZW9wal6j-z9uA6WQ=w854-h924-no?authuser=0,,,,\n2021,FA,MUS,19,Large\n2022,WI,CSE,110,Large"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                1),
+                        isDisplayed()));
+        appCompatEditText10.perform(pressImeActionButton());
+
+        ViewInteraction materialButton6 = onView(
+                allOf(withId(R.id.NearbyMessageMockedButton), withText("Enter"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
+        materialButton6.perform(click());
+
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.student_view),
+                        childAtPosition(
+                                withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
+                                0)));
+        recyclerView.perform(actionOnItemAtPosition(1, click()));
     }
 
     private static Matcher<View> childAtPosition(

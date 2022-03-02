@@ -16,13 +16,14 @@ import android.widget.TextView;
 import android.content.SharedPreferences;
 
 import com.benlau.bofteam1.db.AppDatabase;
-import com.benlau.bofteam1.db.Person;
+import com.benlau.bofteam1.db.Student;
 
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class ProfileReviewActivity extends AppCompatActivity {
 
@@ -86,11 +87,13 @@ public class ProfileReviewActivity extends AppCompatActivity {
         //creating a new person when profile is made and adding them to db
         //hardcoding common courses to 0, will  get updated via a setter() later
         //empty list of courses for courses in common with itself, won't make a difference
-        Person newPerson = new Person(this.getPreferredName(),this.getProfileURL(), "0");
-        db.personsDao().insert(newPerson);
+        String uniqueID = UUID.randomUUID().toString();
+        Student newStudent = new Student(this.getPreferredName(),this.getProfileURL(), "0", uniqueID);
+        db.studentsDao().insert(newStudent);
         //then retrieve this person with db.personsDao().get(0)
         //retrive this person's list of courses with db.coursesDao().getCoursesForPerson(0)
         Intent intent = new Intent(this, CourseHistoryActivity.class);
+        intent.putExtra("UUID", uniqueID);
         startActivity(intent);
     }
 }

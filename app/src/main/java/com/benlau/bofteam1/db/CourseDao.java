@@ -12,8 +12,8 @@ import java.util.List;
 public interface CourseDao
 {
     @Transaction
-    @Query("SELECT * FROM course_history where person_id=:personId")
-    List<Course> getCoursesForPerson(int personId);
+    @Query("SELECT * FROM course_history where studentUUID=:UUID")
+    List<Course> getCoursesForStudent(String UUID);
 
     /*
     @Query("SELECT * FROM course_history WHERE person_id=:personId")
@@ -25,10 +25,10 @@ public interface CourseDao
     @Delete
     void delete(Course course);
 
-    @Query("SELECT COUNT(*) from course_history")
+    @Query("SELECT COUNT(*) FROM course_history")
     int count();
 
-    @Query("SELECT MAX(id) from course_history")
+    @Query("SELECT MAX(courseId) FROM course_history")
     int maxId();
 
 }
