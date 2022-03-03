@@ -20,15 +20,31 @@ import com.benlau.bofteam1.db.Course;
 import com.benlau.bofteam1.db.IPerson;
 import com.benlau.bofteam1.db.Student;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapter.ViewHolder> {
     private final List<Student> students;
     private String userUUID = "";
+    boolean firstTime = true;
 
     public StudentsViewAdapter(List<Student> students){
         super();
         this.students = students;
+        Collections.sort(students, new Comparator<Person>() {
+            @Override
+            public int compare(Person lhs, Person rhs) {
+                if(lhs.getPersonId() == 1){return 0;} //no matter what rhs < lhs is, return rhs
+                if (rhs.getPersonId()==1){return 0;} //no matter what rhs < lhs is, return lhs
+                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                return Integer.valueOf(rhs.getCommonCourses()) < Integer.valueOf(lhs.getCommonCourses()) ? -1 : (Integer.valueOf(rhs.getCommonCourses()) > Integer.valueOf(lhs.getCommonCourses())) ? 1 : 0;
+            }
+        });
+
+
+
+
     }
     @NonNull
     @Override
