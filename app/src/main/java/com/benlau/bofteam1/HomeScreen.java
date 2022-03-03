@@ -287,12 +287,7 @@ public class HomeScreen extends AppCompatActivity {
             List<Person> favStudents = new ArrayList<Person>();
             favStudents.add(db.personsDao().get(1));//have to insert one person beforehand bc of db bug, should be fixed by Mark's updates?
             for (Person person : persons){
-                if (person.getPersonName().equals("Vinnie")){
-                    person.setIsFavorite(true);
-                }
-                if(person.getPersonName().equals("Bill")){
-                    person.setIsFavorite(true);
-                }
+            //assumes some people will be favorited using setIsFavorite in some other activity
                 if (person.getIsFavorite()){
 
                     favStudents.add(person);
