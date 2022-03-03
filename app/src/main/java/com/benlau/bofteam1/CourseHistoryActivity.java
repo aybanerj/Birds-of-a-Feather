@@ -63,6 +63,13 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         quarter.setPrompt("QUARTER");
         quarter.setAdapter(adapter);
 
+        Spinner courseSizes = findViewById(R.id.courseSize_spinner);
+        ArrayAdapter<String> classSizeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,
+                new String[]{"Tiny(<40)", "Small(40-75)", "Medium(75-150)", "Large(150-250)", "Huge(250-400)", "Gigantic(400+)"});
+
+        courseSizes.setAdapter(classSizeAdapter);
+
+
         coursesRecyclerView = findViewById(R.id.my_courses);
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
@@ -82,6 +89,7 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         //int newCourseId = db.coursesDao().maxId() + 1;
 
         Spinner quarterSchool = (Spinner) findViewById(R.id.quarter);
+        Spinner courseSizeSpinner = (Spinner) findViewById(R.id.courseSize_spinner);
         TextView numberTV = findViewById(R.id.courseID);
         TextView yearTV = findViewById(R.id.year);
         TextView courseTV = findViewById(R.id.course);
@@ -89,9 +97,28 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
         String quarter = quarterSchool.getSelectedItem().toString();
         String year = yearTV.getText().toString();
         String course = courseTV.getText().toString().toUpperCase();
+        String courseSize = "";
+        if (courseSizeSpinner.getSelectedItem().toString().equals("Tiny(<40)")) {
+            courseSize = "Tiny";
+        }
+        else if (courseSizeSpinner.getSelectedItem().toString().equals("Small(40-75)")) {
+            courseSize = "Small";
+        }
+        else if (courseSizeSpinner.getSelectedItem().toString().equals("Medium(75-250)")) {
+            courseSize = "Medium";
+        }
+        else if (courseSizeSpinner.getSelectedItem().toString().equals("Large(150-250)")) {
+            courseSize = "Large";
+        }
+        else if (courseSizeSpinner.getSelectedItem().toString().equals("Huge(250-400)")) {
+            courseSize = "Huge";
+        }
+        else if (courseSizeSpinner.getSelectedItem().toString().equals("Gigantic(400+)")) {
+            courseSize = "Gigantic";
+        }
         //get the UUID of the User
         //UPDATE THIS WHEN THE COURSE SIZE IS ADDED
-        Course newCourse = new Course(userUUID, year, quarter, course, number, "Large");
+        Course newCourse = new Course(userUUID, year, quarter, course, number, courseSize);
 
         //checks to ensure that fields are not left empty before moving on
         if(year.equals(""))
@@ -131,6 +158,29 @@ public class CourseHistoryActivity extends AppCompatActivity implements OnEditCl
             courseTV.setText(data[2]);
             numberTV.setText(data[3]);
             Spinner quarterSchool = findViewById(R.id.quarter);
+            Spinner classSizes = findViewById(R.id.courseSize_spinner);
+            switch (data[4]) {
+                case "Tiny(<40)":
+                    classSizes.setSelection(0);
+                    break;
+                case "Small(40-75)":
+                    classSizes.setSelection(1);
+                    break;
+                case "Medium(75-250)":
+                    classSizes.setSelection(2);
+                    break;
+                case "Large(150-250)":
+                    classSizes.setSelection(3);
+                    break;
+                case "Huge(250-400)":
+                    classSizes.setSelection(4);
+                    break;
+                case "Gigantic(400+)":
+                    classSizes.setSelection(5);
+                    break;
+                default:
+                    break;
+            }
             switch (data[1]) {
                 case "FA":
                     quarterSchool.setSelection(0);
