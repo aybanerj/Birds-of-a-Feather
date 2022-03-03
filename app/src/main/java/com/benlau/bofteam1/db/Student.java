@@ -28,6 +28,10 @@ public class Student {
     @ColumnInfo(name = "numCommon")
     private String numCommonCourses;
 
+    private int recencyScore;
+    private double classSizeWeight;
+    private boolean isFavorite;
+
     /*
     @ColumnInfo(name = "commonCoursesWithAppUser")
     private List<String> commonCoursesWithAppUser;*/
@@ -72,6 +76,15 @@ public class Student {
 
     public String getNumCommonCourses(){return this.numCommonCourses;}
     public void setNumCommonCourses(String numCommon){this.numCommonCourses = numCommon;}
+
+    public int getRecencyScore(){return this.recencyScore;}
+    public void setRecencyScore(int recencyScore){this.recencyScore = recencyScore;}
+
+    public double getClassSizeWeight(){return this.classSizeWeight;}
+    public void setClassSizeWeight(double classSizeWeight){this.classSizeWeight = classSizeWeight;}
+
+    public boolean getIsFavorite(){return this.isFavorite;}
+    public void setIsFavorite(boolean isFavorite){this.isFavorite = isFavorite;}
 
     //public List<String> getCommonCoursesWithAppUser() {return commonCoursesWithAppUser;}
 

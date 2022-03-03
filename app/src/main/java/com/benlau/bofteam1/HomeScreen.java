@@ -70,7 +70,7 @@ public class HomeScreen extends AppCompatActivity {
         sortingDropdown.setAdapter(adapter);
 
         db = AppDatabase.getDatabase(getApplicationContext());
-        List<Student> students = db.studentsDao().getAllStudents();
+        students = db.studentsDao().getAllStudents();
 
         studentsRecyclerView = findViewById(R.id.student_view);
         studentsLayoutManager = new LinearLayoutManager(this);
@@ -139,8 +139,8 @@ public class HomeScreen extends AppCompatActivity {
         Collections.sort(newStudentsList, new Comparator<Student>() {
             @Override
             public int compare(Student lhs, Student rhs) {
-                if(lhs.getUUID().equals(this.userUUID)){return 0;} //no matter what rhs < lhs is, return rhs, not sure if this works
-                if (rhs.getUUID().equals(this.userUUID)){return 0;} //no matter what rhs < lhs is, return lhs, not sure if this works
+                if(lhs.getUUID().equals(userUUID)){return 0;} //no matter what rhs < lhs is, return rhs, not sure if this works
+                if (rhs.getUUID().equals(userUUID)){return 0;} //no matter what rhs < lhs is, return lhs, not sure if this works
                 return rhs.getRecencyScore() < lhs.getRecencyScore() ? -1 : rhs.getRecencyScore() > lhs.getRecencyScore() ? 1 : 0;
             }
         });
@@ -165,8 +165,8 @@ public class HomeScreen extends AppCompatActivity {
         Collections.sort(newStudentsList, new Comparator<Student>() {
             @Override
             public int compare(Student lhs, Student rhs) {
-                if(lhs.getUUID().equals(this.userUUID)){return 0;} //not sure what this does but it works
-                if (rhs.getUUID().equls(this.userUUID)){return 0;} //not sure what this does but it works
+                if(lhs.getUUID().equals(userUUID)){return 0;} //not sure what this does but it works
+                if (rhs.getUUID().equals(userUUID)){return 0;} //not sure what this does but it works
                 return rhs.getClassSizeWeight() < lhs.getClassSizeWeight() ? 1 : rhs.getClassSizeWeight() > lhs.getClassSizeWeight() ? -1 : 0;
             }
         });
@@ -177,13 +177,13 @@ public class HomeScreen extends AppCompatActivity {
 
     public List<Student> sortByThisQuarterOnly(List<Student> students) {
         //add people that match 2022 WI but sort otherwise by common courses
-        List<Student> allPeople = db.personsDao().getAllStudents
+        List<Student> allStudents = db.studentsDao().getAllStudents();
         List<Student> newStudentsList = new ArrayList<Student>();
         // newPersonsList.add(db.personsDao().get(1)); //have to add some random person bc according to studentViewAdapter person in position 0 is not shown
         for (Student student : allStudents){
             List<Course> allCoursesForStudent = db.coursesDao().getCoursesForStudent(student.getUUID());//ASSUMING GETPERSONID works
             for (Course course : allCoursesForStudent){
-                if (course.getCourseYear().equals("2022") && course.getQuarter().equals("WI")){
+                if (course.getYear().equals("2022") && course.getQuarter().equals("WI")){
                     if (!student.getUUID().equals(this.userUUID)) {
                         newStudentsList.add(student);
                     }
@@ -207,7 +207,7 @@ public class HomeScreen extends AppCompatActivity {
         List<Course> allCourses = db.coursesDao().getCoursesForStudent(student.getUUID());
         double sumValue = 0;
         for (Course course : allCourses) {
-            switch (course.getClassSize()) {
+            switch (course.getCourseSize()) {
                 case "Tiny":
                     sumValue+=1.00;
                     break;
@@ -247,7 +247,7 @@ public class HomeScreen extends AppCompatActivity {
         List<Course> allCourses = db.coursesDao().getCoursesForStudent(student.getUUID());
         int sumValue = 0;
         for (Course course : allCourses) {
-            switch (course.getCourseYear()) {
+            switch (course.getYear()) {
                 case "2022":
                     sumValue += 5;
                     break;
@@ -321,10 +321,10 @@ public class HomeScreen extends AppCompatActivity {
        //only if checked to on position
         if (filterByFavCheckbox.isChecked()){
             //grab only the subset of students that are favorites, then update recyclerview
-            List<Person> persons = db.personsDao().getAllPeople();
-            List<Person> favStudents = new ArrayList<Person>();
-            favStudents.add(db.personsDao().get(1));//have to insert one person beforehand bc of db bug, should be fixed by Mark's updates?
-            for (Person person : persons){
+            List<Student> persons = db.studentsDao().getAllStudents();
+            List<Student> favStudents = new ArrayList<Student>();
+            //favStudents.add(db.studentsDao().get(1));//have to insert one person beforehand bc of db bug, should be fixed by Mark's updates?
+            for (Student person : persons){
             //assumes some people will be favorited using setIsFavorite in some other activity
                 if (person.getIsFavorite()){
 
@@ -339,10 +339,10 @@ public class HomeScreen extends AppCompatActivity {
 
         }
         else {
-            List<Person> allPeople = db.personsDao().getAllPeople();
+            List<Student> allStudents = db.studentsDao().getAllStudents();
             //everytime new adapter created the list should be sorted by common courses
             studentsViewAdapter.notifyDataSetChanged();
-            studentsRecyclerView.setAdapter(new StudentsViewAdapter(allPeople));
+            studentsRecyclerView.setAdapter(new StudentsViewAdapter(allStudents));
         }
 
     }

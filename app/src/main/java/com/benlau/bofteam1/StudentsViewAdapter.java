@@ -32,13 +32,13 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
     public StudentsViewAdapter(List<Student> students){
         super();
         this.students = students;
-        Collections.sort(students, new Comparator<Person>() {
+        Collections.sort(students, new Comparator<Student>() {
             @Override
-            public int compare(Person lhs, Person rhs) {
-                if(lhs.getPersonId() == 1){return 0;} //no matter what rhs < lhs is, return rhs
-                if (rhs.getPersonId()==1){return 0;} //no matter what rhs < lhs is, return lhs
+            public int compare(Student lhs, Student rhs) {
+                if(lhs.getUUID().equals(students.get(0).getUUID())){return 0;} //no matter what rhs < lhs is, return rhs
+                if (rhs.getUUID().equals(students.get(0).getUUID())){return 0;} //no matter what rhs < lhs is, return lhs
                 // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
-                return Integer.valueOf(rhs.getCommonCourses()) < Integer.valueOf(lhs.getCommonCourses()) ? -1 : (Integer.valueOf(rhs.getCommonCourses()) > Integer.valueOf(lhs.getCommonCourses())) ? 1 : 0;
+                return Integer.valueOf(rhs.getNumCommonCourses()) < Integer.valueOf(lhs.getNumCommonCourses()) ? -1 : (Integer.valueOf(rhs.getNumCommonCourses()) > Integer.valueOf(lhs.getNumCommonCourses())) ? 1 : 0;
             }
         });
 

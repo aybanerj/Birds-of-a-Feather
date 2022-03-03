@@ -104,7 +104,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
-        android:id="@+id/classSize_spinner"
+        android:id="@+id/courseSize_spinner"
         android:layout_width="185dp"
         android:layout_height="69dp"
         app:layout_constraintBottom_toBottomOf="parent"
